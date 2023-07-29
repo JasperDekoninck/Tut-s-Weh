@@ -22,6 +22,7 @@ export default function AppWrapper() {
                 <Tab.Navigator
                     screenOptions={({ route }) => ({
                     headerShown: false,
+                    tabBarLabelPosition: "below-icon",
                     tabBarIcon: ({ focused, color, size }) => {
                         let iconName;
 
