@@ -4,3 +4,12 @@ npx expo install @expo/webpack-config@^18.0.1
 
 npx react-native link @react-native-async-storage/async-storage
 npm install @react-native-async-storage/async-storage
+
+npm install @react-navigation/stack
+npm install @react-navigation/native
+npm install react-native-gesture-handler
+npm install react-native-tab-view
+
+
+Might want to switch to sqlite for storage of pain scale entries, but probably not super important.
+GPT-4 does it easy.
