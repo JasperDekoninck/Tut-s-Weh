@@ -4,6 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { MaterialIcons } from '@expo/vector-icons';
 
+
 import Home from '../pages/Home';
 import History from '../pages/History';
 import Info from '../pages/Info';
@@ -55,7 +56,7 @@ export default function AppWrapper() {
                     tabBarIconStyle: { marginTop: 5 },
                 })}
                 >
-                    <Tab.Screen name="Home" component={Home} />
+                    <Tab.Screen name="Home" component={Home}/>
                     <Tab.Screen name="History" component={History} />
                     <Tab.Screen name="Info" component={Info} />
                     <Tab.Screen name="Settings" component={Settings} />
