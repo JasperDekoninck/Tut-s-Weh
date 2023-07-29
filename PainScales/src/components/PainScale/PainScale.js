@@ -35,9 +35,8 @@ const PainScale = ({ scale }) => {
                 type: "success",
                 autoHide: true,
                 duration: 3000 // 3 seconds
-                
             });
-            setAnswer(scale.ScaleMin);
+            setAnswer(scale.scaleMin);
         } else {
             showMessage({ // Updates here to display on top
                 message: "Please select your pain scale before submitting",
