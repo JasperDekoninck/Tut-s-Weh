@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { MaterialIcons } from '@expo/vector-icons';
-
+import { PrimaryColor, SecondaryColor } from '../utils/Constants';
 
 import Home from '../pages/Home';
 import History from '../pages/History';
@@ -46,7 +46,7 @@ export default function AppWrapper() {
 
                         return <MaterialIcons name={iconName} size={size} color={color} />;
                     },
-                    tabBarActiveTintColor: 'red',
+                    tabBarActiveTintColor: PrimaryColor,
                     tabBarInactiveTintColor: 'gray',
                     tabBarStyle: [
                         {
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
         flex: 1
     },
     header: {
-        backgroundColor: 'red',
+        backgroundColor: PrimaryColor,
         height: 80,
         justifyContent: 'center',
         alignItems: 'center',

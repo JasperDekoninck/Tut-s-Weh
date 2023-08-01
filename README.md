@@ -13,6 +13,10 @@ npx expo install @expo/vector-icons
 npm install --save react-native-flash-message
 npm install @react-native-community/slider
 npm install rn-vertical-slider
+npm install react-native-modal-datetime-picker
+npm install react-native-dropdown-picker
 
 Might want to switch to sqlite for storage of pain scale entries, but probably not super important.
 GPT-4 does it easy.
+
+React-native-localize for multiple languages

@@ -3,7 +3,7 @@ import { View, useWindowDimensions, Text } from 'react-native';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import { IntensityPage, FeelingPage, AffectPage, TypePage } from './PainScale';
 import { setLastSelectedCategoryId, getLastSelectedCategoryId } from '../services/selectedPainCategory';
-
+import { PrimaryColor, SecondaryColor } from '../utils/Constants';
 
 const IntensityRoute = () => <IntensityPage />;
 const FeelingRoute = () => <FeelingPage />;
@@ -54,10 +54,10 @@ export default function Home() {
     <TabBar
       {...props}
       indicatorStyle={{ backgroundColor: 'white' }} // active tab underline color
-      style={{ backgroundColor: 'red' }} // TabBar background
-      indicatorContainerStyle={{backgroundColor: "red"}}
+      style={{ backgroundColor: PrimaryColor }} // TabBar background
+      indicatorContainerStyle={{backgroundColor: PrimaryColor}}
       renderLabel={({ route, focused, color }) => (
-        <Text style={{ color: focused ? 'red' : 'white', backgroundColor: focused ? "white" : "red", paddingLeft: 12, 
+        <Text style={{ color: focused ? PrimaryColor : 'white', backgroundColor: focused ? "white" : PrimaryColor, paddingLeft: 12, 
                         paddingRight: 12, paddingTop: 5, paddingBottom: 5, borderRadius: 15, overflow: 'hidden', }}>
           {route.title}
         </Text>

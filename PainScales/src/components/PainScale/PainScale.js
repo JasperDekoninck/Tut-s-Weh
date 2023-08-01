@@ -23,10 +23,10 @@ const PainScale = ({ scale }) => {
 
     const handleAnswerSubmit = () => {
         if(answer !== null) {
+            var date = new Date();
             const painRecord = {
-                date: new Date(),
-                category: scale.category,
-                question: scale.question,
+                date: date,
+                scale_id: scale.id,
                 answer: answer,
             };
             addToHistory(painRecord);

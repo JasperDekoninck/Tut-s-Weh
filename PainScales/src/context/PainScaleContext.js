@@ -20,6 +20,21 @@ export const PainScaleProvider = ({ children }) => {
     }
   };
 
+  const deleteFromHistory = async (data) => {
+    try {
+      const previousHistory = await AsyncStorage.getItem('history');
+      const previousHistoryParsed = previousHistory != null ? JSON.parse(previousHistory) : [];
+      const newHistory = previousHistoryParsed.filter(item => item.date !== data.date);
+      await AsyncStorage.setItem('history', JSON.stringify(newHistory));
+
+      setHistory(newHistory);
+    } catch (error) {
+      // Error saving data
+      console.log(error);
+    }
+  };
+
+
   React.useEffect(() => {
     const fetchData = async () => {
       const savedHistory = await AsyncStorage.getItem('history');
@@ -29,7 +44,7 @@ export const PainScaleProvider = ({ children }) => {
   }, []);
 
   return (
-    <PainScaleContext.Provider value={{ history, addToHistory }}>
+    <PainScaleContext.Provider value={{ history, addToHistory, deleteFromHistory }}>
       {children}
     </PainScaleContext.Provider>
   );
