@@ -10,6 +10,10 @@ export const PainScaleProvider = ({ children }) => {
     try {
       const previousHistory = await AsyncStorage.getItem('history');
       const previousHistoryParsed = previousHistory != null ? JSON.parse(previousHistory) : [];
+
+      // get the max id in the history and add 1 to it
+      const maxId = previousHistoryParsed.reduce((max, item) => Math.max(max, item.id), 0);
+      data.id = maxId + 1;
       const newHistory = [...previousHistoryParsed, data];
       await AsyncStorage.setItem('history', JSON.stringify(newHistory));
       
@@ -24,7 +28,7 @@ export const PainScaleProvider = ({ children }) => {
     try {
       const previousHistory = await AsyncStorage.getItem('history');
       const previousHistoryParsed = previousHistory != null ? JSON.parse(previousHistory) : [];
-      const newHistory = previousHistoryParsed.filter(item => item.date !== data.date);
+      const newHistory = previousHistoryParsed.filter(item => item.id !== data.id);
       await AsyncStorage.setItem('history', JSON.stringify(newHistory));
 
       setHistory(newHistory);

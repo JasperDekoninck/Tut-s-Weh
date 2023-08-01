@@ -1,13 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, TouchableOpacity, Alert, FlatList } from 'react-native';
+import { View, Text, TouchableOpacity, Alert, FlatList, ScrollView, Image } from 'react-native';
 import { PainScaleContext } from '../context/PainScaleContext';
 import { CATEGORIES, PainScaleData } from '../services/PainScaleData';
-import DropDownPicker from 'react-native-dropdown-picker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { StyleSheet } from 'react-native';
 import { Dimensions } from 'react-native';
 import {PrimaryColor, SecondaryColor} from '../utils/Constants';
 import Icon from 'react-native-vector-icons/Ionicons'; 
+import { FontAwesome } from '@expo/vector-icons'; 
+import { Svg, Circle, G } from 'react-native-svg';
+import CircularProgress from 'react-native-circular-progress-indicator';
 
 const vh = Dimensions.get('window').height;
 const vw = Dimensions.get('window').width;
@@ -61,6 +63,99 @@ const History = () => {
 
     const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
     const [selectedDate, setSelectedDate] = useState(null);
+
+    const [displayScaleList, setDisplayScaleList] = useState(false);
+    const [displayCategoryList, setDisplayCategoryList] = useState(false);
+
+    const lerpColor = (color1, color2, t) => {
+        let r = color1[0] + t * (color2[0] - color1[0]);
+        let g = color1[1] + t * (color2[1] - color1[1]);
+        let b = color1[2] + t * (color2[2] - color1[2]);
+        return `rgb(${r}, ${g}, ${b})`;
+    }
+
+    const calculateThumbColor = (t, scale) => {
+        if (t < 0.5) {
+            return lerpColor(scale.startColor, scale.midColor, t*2); // lerp from startColor to midColor
+        }
+        else {
+            return lerpColor(scale.midColor, scale.endColor, (t-0.5)*2); // lerp from midColor to endColor
+        }
+    }
+
+    const setOpacity = (t, scale) => {
+        let startValue = 0.1;
+        let opacityMin = startValue;
+        let opacityMax = startValue;
+        let opacityMid = startValue;
+        if (t < 0.5) {
+            opacityMid += ((1 - startValue) * t * 2);
+            opacityMin += ((1 - startValue) * (1 - t * 2)); 
+        } else {
+            opacityMax += ((1 - startValue) * (t - 0.5) * 2);
+            opacityMid += ((1 - startValue) * (1 - (t - 0.5) * 2));
+        }
+        return [opacityMin, opacityMid, opacityMax];
+    }
+
+    // initialize dict of normalized values for each scale
+    const [normalizedValues, setNormalizedValues] = useState({})
+
+    const displayNumericalAnswer = (answer, item_id, scale) => {
+        var normalizedValue = (answer-scale.scaleMin) / (scale.scaleMax-scale.scaleMin);
+        let opacity = setOpacity(normalizedValue, scale);
+        let color = calculateThumbColor(normalizedValue, scale)
+        // copy the normalized value
+
+        return (
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                <View style={styles.circularProgressStyle}>
+                    <CircularProgress
+                        value={(answer-scale.scaleMin) / (scale.scaleMax-scale.scaleMin) * 100}
+                        maxValue={100}
+                        duration={0}
+                        
+                        showProgressValue={false}
+                        title={answer.toString()}
+                        inActiveStrokeColor={color}
+                        inActiveStrokeOpacity={0.2}
+                        titleColor={"black"}
+                        titleFontSize={20}
+                        titleStyle={{fontWeight: 'bold'}}
+                        activeStrokeColor={color}
+                        radius={40}
+                />
+                </View>
+              
+        
+              <View style={styles.numericalText}>
+                <Text style={{ opacity: opacity[0], marginBottom: 5 }}>{scale.scaleMinText}</Text>
+                <Text style={{ opacity: opacity[1], marginBottom: 5 }}>{scale.scaleMidText}</Text>
+                <Text style={{ opacity: opacity[2] }}>{scale.scaleMaxText}</Text>
+              </View>
+            </View>
+            );
+    }
+
+    const displayCategoricalAnswer = (answer, item_id, scale) => {
+        // display the image associated with the answer (which is the id of the option) next to the text associated with the option
+        let option = scale.options.find(option => option.id === answer);
+        return (
+            <View style={styles.optionContent}>
+                <Image source={option.image} style={styles.optionImage}/>
+                <Text style={styles.optionText}>{option.text}</Text>
+            </View>
+        )
+    }
+                
+
+    const displayAnswer = (answer, item_id, scale) => {
+        if (scale.type === "numerical") {
+            return displayNumericalAnswer(answer, item_id, scale);
+        } else if (scale.type === "categorical") {
+            return displayCategoricalAnswer(answer, item_id, scale);
+        }
+    }
 
     useEffect(() => {
         if (selectedDate !== null) {
@@ -120,6 +215,16 @@ const History = () => {
     const [selectedScale, setSelectedScale] = useState(null);
     const [selectedCategory, setSelectedCategory] = useState(null);
 
+    const handleSetSelectedScale = (scale_id) => {
+        setSelectedScale(scale_id);
+        setDisplayScaleList(false);
+    };
+
+    const handleSetSelectedCategory = (category) => {
+        setSelectedCategory(category);
+        setDisplayCategoryList(false);
+    };
+
     const [filteredHistory, setFilteredHistory] = useState(onlyCorrectHistory);
 
     useEffect(() => {
@@ -141,108 +246,118 @@ const History = () => {
 
     }, [history, selectedScale, selectedCategory]);
 
-    const [open, setOpen] = useState(false);
     let scaleItems = scales.map(scale => ({ label: scale.name, value: scale.id }));
-    scaleItems.push({ label: "All", value: null });
+    scaleItems.unshift({ label: "All", value: null });
+    // make sure the all scales comes first
+
     // CATEGORIES is a dictionary, so we need to convert it to an array
 
     let categoryItems = Object.keys(CATEGORIES).map(key => ({ label: CATEGORIES[key], value: CATEGORIES[key] }));
-    categoryItems.push({ label: "All", value: null });
+    categoryItems.unshift({ label: "All", value: null });
 
-    return (
-        <View style={{flex: 1}}>
-            <TouchableOpacity onPress={() => setDatePickerVisibility(true)}>
-                <Text>Select a date</Text>
-            </TouchableOpacity>
-            {isDatePickerVisible && (
-                <DateTimePicker
-                    value={selectedDate || new Date()}
-                    mode={'date'}
-                    is24Hour={true}
-                    display="default"
-                    onChange={(event, date) => handleConfirmDate(date)}
-                />
-            )}
+    if (displayScaleList) {
+        return <ScrollView>
+            {scaleItems.map(scale => (
+                    <TouchableOpacity 
+                        style={styles.scale_category_button} 
+                        key={scale.value} 
+                        onPress={() => handleSetSelectedScale(scale.value)}  
+                    >
+                        <Text>{scale.label}</Text>
+                        {selectedScale === scale.value && (
+                        <FontAwesome name="check" size={20} color={SecondaryColor} />
+                        )}
+                    </TouchableOpacity>
+                    ))
+            }
+        </ScrollView>
+    } else if (displayCategoryList) {
+        return <ScrollView>
+            {categoryItems.map(scale => (
+                    <TouchableOpacity 
+                        style={styles.scale_category_button} 
+                        key={scale.value} 
+                        onPress={() => handleSetSelectedCategory(scale.value)}  
+                    >
+                        <Text>{scale.label}</Text>
+                        {selectedCategory === scale.value && (
+                        <FontAwesome name="check" size={20} color={SecondaryColor} />
+                        )}
+                    </TouchableOpacity>
+                    ))
+            }
+        </ScrollView>
+    } else {
+        return <View style={{flex : 1}}>
+                <View style={styles.form}>
+                    <TouchableOpacity onPress={() => setDatePickerVisibility(true)} style={styles.dateSelector}>
+                        <Text style={styles.dataSelectorText}> Set Date</Text>
+                    </TouchableOpacity>
+                    {isDatePickerVisible && (
+                        <DateTimePicker
+                            value={selectedDate || new Date()}
+                            mode={'date'}
+                            is24Hour={true}
+                            display="default"
+                            onChange={(event, date) => handleConfirmDate(date)}
+                        />
+                    )}
 
-            <DropDownPicker
-                items={scaleItems}
-                value={selectedScale}
-                defaultValue={selectedScale}
-                containerStyle={{height: 40}}
-                style={{backgroundColor: 'white'}}
-                itemStyle={{
-                    justifyContent: 'flex-start'
-                }}
-                dropDownStyle={{backgroundColor: 'white'}}
-                setValue={setSelectedScale}
-                open={open}
-                setOpen={setOpen}
-                placeholder="Select a scale"
-                zIndex={9999}
-            />
+                    <TouchableOpacity onPress={() => setDisplayScaleList(true)} style={styles.dateSelector}>
+                        <Text style={styles.dataSelectorText}> Set Scale</Text>
+                    </TouchableOpacity>
 
-            <DropDownPicker
-                items={categoryItems}
-                value={selectedCategory}
-                defaultValue={selectedCategory}
-                containerStyle={{height: 40}}
-                style={{backgroundColor: 'white'}}
-                itemStyle={{
-                    justifyContent: 'flex-start'
-                }}
-                dropDownStyle={{backgroundColor: 'white'}}
-                setValue={setSelectedCategory}
-                open={open}
-                setOpen={setOpen}
-                placeholder="Select a category"
-                zIndex={9999}
-            />
+                    <TouchableOpacity onPress={() => setDisplayCategoryList(true)} style={styles.dateSelector}>
+                        <Text style={styles.dataSelectorText}> Set Category</Text>
+                    </TouchableOpacity>
 
-            <FlatList
-                ref={flatListRef}
-                data={filteredHistory}
-                style={styles.flatListStyle}
-                keyExtractor={item => item.id}
-                renderItem={({ item, index }) => {
-                    const scale = scales.find(scale => scale.id === item.scale_id);
-                    const date = formatDate(item.date);
-                    const time = formatTime(item.date);
-                    let isNewDate = false;
-                    if (index == 0) {
-                        isNewDate = true;
-                    } else {
-                        const oldDate = formatDate(filteredHistory[index - 1].date);
-                        isNewDate = (date != oldDate);
-                    }
-                    
-                    return scale ? (
-                        <View style={styles.entryWrapper} key={index}>
-                                {isNewDate && 
-                            <View style={styles.dateContainer}>
-                                <View style={styles.line}/>
-                                <Text style={styles.dateText}>{date}</Text>
-                                <View style={styles.line}/>
-                            </View>}
-                            <View style={styles.card}>
-                                <View style={styles.leftCard}>
-                                    <View style={styles.header}>
-                                        <Text style={styles.smallDate}>{time}</Text>
-                                        <Text style={styles.title}>{scale.question}</Text>
+                </View>
+
+                <FlatList
+                    ref={flatListRef}
+                    data={filteredHistory}
+                    style={styles.flatListStyle}
+                    keyExtractor={item => item.id}
+                    renderItem={({ item, index }) => {
+                        const scale = scales.find(scale => scale.id === item.scale_id);
+                        const date = formatDate(item.date);
+                        const time = formatTime(item.date);
+                        let isNewDate = false;
+                        if (index == 0) {
+                            isNewDate = true;
+                        } else {
+                            const oldDate = formatDate(filteredHistory[index - 1].date);
+                            isNewDate = (date != oldDate);
+                        }
+                        
+                        return scale ? (
+                            <View style={styles.entryWrapper} key={index}>
+                                    {isNewDate && 
+                                <View style={styles.dateContainer}>
+                                    <View style={styles.line}/>
+                                    <Text style={styles.dateText}>{date}</Text>
+                                    <View style={styles.line}/>
+                                </View>}
+                                <View style={styles.card}>
+                                    <View style={styles.leftCard}>
+                                        <View style={styles.header}>
+                                            <Text style={styles.smallDate}>{time}</Text>
+                                            <Text style={styles.title}>{scale.question}</Text>
+                                        </View>
+                                        
+                                        {displayAnswer(item.answer, item.id, scale)}
                                     </View>
+                                    <TouchableOpacity style={styles.iconContainer} onPress={() => handleDelete(index)}>
+                                        <Icon name="close" size={20} color="red" style={styles.bin}/>
+                                    </TouchableOpacity>
                                     
-                                    <Text style={styles.text}>Answer: {item.answer}</Text>
                                 </View>
-                                <TouchableOpacity style={styles.iconContainer} onPress={() => handleDelete(index)}>
-                                    <Icon name="close" size={20} color="red" style={styles.bin}/>
-                                </TouchableOpacity>
-                                
                             </View>
-                        </View>
-                    ) : null;
-                }}
-            />
-        </View>
-    );
+                        ) : null;
+                    }}
+                />
+            </View>
+    }
 }
 
 const styles = StyleSheet.create({
@@ -253,6 +368,27 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         marginTop: 10
     },
+    scale_category_button : {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        backgroundColor: '#fff',
+        padding: 20,
+        borderWidth: 1,
+        borderColor: '#ddd',
+    },
+    circularProgressStyle: {
+        marginLeft: 20,
+        marginBottom: 10,
+        width: "30%"
+    },
+    numericalText: {
+        width: "70%",
+        // center text vertically
+        flexDirection: 'column',
+        justifyContent: 'center',
+        marginBottom: 10,
+    },
     line: {
         flex: 1,
         height: 2,
@@ -260,6 +396,26 @@ const styles = StyleSheet.create({
     },
     flatListStyle: {
         zIndex: -1
+    },
+    form: {
+        flexDirection: 'row',
+        marginTop: 15,
+        alignContent: 'center',
+        justifyContent: 'center',
+    },
+    dateSelector: {
+        backgroundColor: SecondaryColor,
+        color: 'white',
+        borderRadius: 10,
+        padding: 10,
+        margin: 10
+    },
+    dataSelectorText: {
+        color: "white"
+    },
+    dropdownpicker: {
+        width: 150,
+        height: 20
     },
     dateText: {
         color: 'grey',
@@ -314,6 +470,21 @@ const styles = StyleSheet.create({
         fontSize: 16,
         marginBottom: 5,
         padding: 10
+    },
+    optionContent: {
+        alignItems: 'center',
+    },
+
+    optionImage: {
+        width: 60,
+        height: 60,
+        resizeMode: 'contain',
+    },
+
+    optionText: {
+        fontSize: 20,
+        textAlign: 'center',
+        marginBottom: 10,
     },
 });
 
