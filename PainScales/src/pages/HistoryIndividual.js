@@ -8,7 +8,6 @@ import { Dimensions } from 'react-native';
 import {PrimaryColor, SecondaryColor} from '../utils/Constants';
 import Icon from 'react-native-vector-icons/Ionicons'; 
 import { FontAwesome } from '@expo/vector-icons'; 
-import { Svg, Circle, G } from 'react-native-svg';
 import CircularProgress from 'react-native-circular-progress-indicator';
 
 const vh = Dimensions.get('window').height;
