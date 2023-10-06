@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, FlatList, ScrollView } from 'react-native';
+import { View, Text, TouchableOpacity, FlatList, ScrollView, Image } from 'react-native';
 import { PainScaleContext } from '../context/PainScaleContext';
 import { CATEGORIES, PainScaleData } from '../services/PainScaleData';
 import DateTimePicker from '@react-native-community/datetimepicker';
@@ -220,11 +220,19 @@ const HistoryCombined = () => {
                     return (
                         <View style={styles.card}>
                             <Text style={styles.title}>{scale.question}</Text>
-                            {item.optionCounts.map(optionCount => (
-                                <View style={styles.optionCount} key={optionCount.option.id}>
-                                    <Text>{optionCount.option.text}: {optionCount.percentage}%</Text>
-                                </View>
-                            ))}
+                            <FlatList
+                                data={item.optionCounts}
+                                style={styles.optionList}
+                                numColumns={2}
+                                keyExtractor={optionCount => optionCount.option.id}
+                                renderItem={({ item: optionCount }) => (
+                                    <View style={styles.optionCount} key={optionCount.option.id}>
+                                        <Image source={optionCount.option.image} style={styles.optionImage}/>
+                                        <Text style={styles.optionText}>{optionCount.option.text}</Text>
+                                        <Text style={styles.percentage}>{optionCount.percentage}%</Text>
+                                    </View>
+                                )}
+                            />
                         </View>
                     );
                 }
@@ -240,6 +248,23 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         marginBottom: 10,
         marginTop: 10
+    },
+    optionCount: {
+        alignItems: 'center',
+        marginBottom: 10,
+        marginTop: 10,
+    },
+    percentage: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: SecondaryColor,
+    },
+    optionList: {
+        flex: 1,
+        justifyContent: 'center',
+        marginBottom: 10,
+        marginTop: 10,
+        alignItems: 'center',
     },
     numericalStats: {
         flexDirection: 'row', 
@@ -359,16 +384,18 @@ const styles = StyleSheet.create({
     },
 
     optionImage: {
-        height: 60,
+        height: 120,
+        width: 120,
         resizeMode: 'contain',
     },
 
     optionText: {
-        fontSize: 15,
+        fontSize: 12,
+        width: 180,
+        height: 60,
         textAlign: 'center',
-        marginBottom: 10,
-        paddingLeft: 10,
-        paddingRight: 10
+        paddingLeft: 5,
+        paddingRight: 5
     },
     numericalTextTitle: {
         textAlign: 'center',
