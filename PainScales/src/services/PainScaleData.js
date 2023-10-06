@@ -67,7 +67,7 @@ export const PainScaleData = [
         ]
     },
     {
-        id: '5',
+        id: '6',
         type: 'categorical',
         name: 'Type of Pain',
         category: CATEGORIES.TYPE,
