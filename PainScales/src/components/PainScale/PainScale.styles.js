@@ -9,6 +9,8 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         padding: 20,
+        paddingLeft: 10,
+        paddingRight: 10,
         maxHeight: "90%",
         minHeight: "90%",
     },
@@ -73,6 +75,7 @@ export default StyleSheet.create({
         alignItems: 'center',
         backgroundColor: '#f0f0f0',
         margin: 5,
+        padding: 5,
         borderRadius: 5,
     },
 
@@ -83,6 +86,7 @@ export default StyleSheet.create({
         alignItems: 'center',
         backgroundColor: SecondaryColor,
         margin: 5,
+        padding: 5,
         borderRadius: 5,
     },
 

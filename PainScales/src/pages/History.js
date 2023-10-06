@@ -459,6 +459,8 @@ const styles = StyleSheet.create({
     title: {
         fontWeight: "bold",
         color: SecondaryColor,
+        paddingLeft: 40,
+        paddingRight: 40,
         fontSize: 18,
         textAlign: 'center',
     },
@@ -476,15 +478,16 @@ const styles = StyleSheet.create({
     },
 
     optionImage: {
-        width: 60,
         height: 60,
         resizeMode: 'contain',
     },
 
     optionText: {
-        fontSize: 20,
+        fontSize: 18,
         textAlign: 'center',
         marginBottom: 10,
+        paddingLeft: 10,
+        paddingRight: 10
     },
 });
 

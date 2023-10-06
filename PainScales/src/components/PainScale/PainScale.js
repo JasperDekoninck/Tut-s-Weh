@@ -133,11 +133,11 @@ const PainScale = ({ scale }) => {
                     <TouchableOpacity 
                         key={option.id} 
                         onPress={() => setAnswer(option.id)}
-                        style={option.id === answer ? styles.selectedOption : styles.option} 
+                        style={[option.id === answer ? styles.selectedOption : styles.option, {height: styles.option.height * scale.height }]}
                     > 
                         <View style={styles.optionContent}>
                             <Image source={option.image} style={styles.optionImage}/>
-                            <Text style={styles.optionText}>{option.text}</Text>
+                            <Text style={[styles.optionText, {fontSize: styles.optionText.fontSize * scale.fontSize }]}>{option.text}</Text>
                         </View>
                     </TouchableOpacity>
                 )}

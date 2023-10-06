@@ -121,5 +121,5 @@ text_scales_button: {
 
 export const IntensityPage = createCategoryPage('INTENSITY');
 export const FeelingPage = createCategoryPage('FEELING');
-export const AffectPage = createCategoryPage('AFFECT');
+export const AffectPage = createCategoryPage('EFFECT');
 export const TypePage = createCategoryPage('TYPE');
