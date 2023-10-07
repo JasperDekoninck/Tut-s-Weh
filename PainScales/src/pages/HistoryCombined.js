@@ -4,44 +4,15 @@ import { PainScaleContext } from '../context/PainScaleContext';
 import { CATEGORIES, PainScaleData } from '../services/PainScaleData';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { StyleSheet } from 'react-native';
-import { Dimensions } from 'react-native';
 import {PrimaryColor, SecondaryColor} from '../utils/Constants';
-import Icon from 'react-native-vector-icons/Ionicons'; 
-import { FontAwesome } from '@expo/vector-icons'; 
 import CircularProgress from 'react-native-circular-progress-indicator';
-
-const vh = Dimensions.get('window').height;
-const vw = Dimensions.get('window').width;
-
-
-function formatDate(isoString) {
-    const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-    const monthsOfYear = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]; 
-    const date = new Date(isoString);
-    const day = daysOfWeek[date.getUTCDay()];
-    const dateOfMonth = String(date.getUTCDate()).padStart(2, '0');
-    const month = monthsOfYear[date.getUTCMonth()];
-    const year = date.getUTCFullYear();
-    return `${day}, ${dateOfMonth} ${month} ${year}`;
-}
-
-function formatTime(isoString) {
-    const date = new Date(isoString);
-    let hour = '' + date.getHours();
-    let minute = '' + date.getMinutes();
-    if (hour.length < 2) 
-        hour = '0' + hour;
-    if (minute.length < 2)
-        minute = '0' + minute;
-    return [hour, minute].join(':');
-}
 
 const HistoryCombined = () => {
     const { history } = React.useContext(PainScaleContext);
     const scales = PainScaleData;
 
     const [startDate, setStartDate] = useState(new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)); // default to last week
-    const [endDate, setEndDate] = useState(new Date()); // default to today
+    const [endDate, setEndDate] = useState(new Date(Date.now())); // default to today
 
     const [isStartDatePickerVisible, setStartDatePickerVisibility] = useState(false);
     const [isEndDatePickerVisible, setEndDatePickerVisibility] = useState(false);
@@ -72,25 +43,24 @@ const HistoryCombined = () => {
         }
     }
 
-    const setOpacity = (t, scale) => {
-        let startValue = 0.1;
-        let opacityMin = startValue;
-        let opacityMax = startValue;
-        let opacityMid = startValue;
-        if (t < 0.5) {
-            opacityMid += ((1 - startValue) * t * 2);
-            opacityMin += ((1 - startValue) * (1 - t * 2)); 
-        } else {
-            opacityMax += ((1 - startValue) * (t - 0.5) * 2);
-            opacityMid += ((1 - startValue) * (1 - (t - 0.5) * 2));
-        }
-        return [opacityMin, opacityMid, opacityMax];
-    }
+    let onlyCorrectHistory = history.filter(item => scales.find(scale => scale.id === item.scale_id));
+    const [filteredHistory, setFilteredHistory] = useState(onlyCorrectHistory);
 
-    const filteredHistory = history.filter(item => {
-        const itemDate = new Date(item.date);
-        return itemDate >= startDate && itemDate <= endDate;
-    });
+    useEffect(() => {
+        onlyCorrectHistory = history.filter(item => scales.find(scale => scale.id === item.scale_id));
+        let newHistory = onlyCorrectHistory.filter(item => {
+            const itemDate = new Date(item.date);
+            // make sure to return true as soon as the date is correct, disregard the time
+            // to do so we need to set the time to 00:00:00
+            itemDate.setHours(0,0,0,0);
+            startDate.setHours(0,0,0,0);
+            endDate.setHours(0,0,0,0);
+            return itemDate >= startDate && itemDate <= endDate;
+        });
+
+        setFilteredHistory(newHistory);
+
+    }, [history, startDate, endDate]);
 
     const displayNumericalAnswer = (item, scale) => {
         let colorMin = calculateThumbColor((item.min-scale.scaleMin) / (scale.scaleMax-scale.scaleMin), scale);
@@ -172,12 +142,29 @@ const HistoryCombined = () => {
         } else if (scale.type === "categorical") {
             const optionCounts = scale.options.map(option => {
                 const count = scaleHistory.filter(item => item.answer === option.id).length;
-                const percentage = count / scaleHistory.length * 100;
+                const percentage = Math.round(count / scaleHistory.length * 100);
+                // round percentage 
                 return { option, count, percentage };
             });
-            return { scale, optionCounts };
+            const totalCounts = optionCounts.reduce((a, b) => a + b.count, 0);
+            return { scale, optionCounts, totalCounts};
         }
     });
+
+    // make sure the percentage adds up to 100, if not add the difference to the highest option
+    scaleStats.forEach(item => {
+        if (item.scale.type === "categorical") {
+            const totalPercentage = item.optionCounts.reduce((a, b) => a + b.percentage, 0);
+            if (totalPercentage !== 100 && item.optionCounts.length > 0 && totalPercentage !== 0) {
+                const highestPercentage = Math.max(...item.optionCounts.map(optionCount => optionCount.percentage));
+                const highestOption = item.optionCounts.find(optionCount => optionCount.percentage === highestPercentage);
+                if (highestOption) {
+                    highestOption.percentage += 100 - totalPercentage;
+                }
+            }
+        }
+    }
+    );
 
     return <View style={{flex : 1}}>
         <View style={styles.form}>
@@ -213,6 +200,12 @@ const HistoryCombined = () => {
             style={styles.flatListStyle}
             keyExtractor={item => item.scale.id}
             renderItem={({ item }) => {
+                // if scale has no history, don't display it
+                if (item.scale.type === "numerical" && (item.min === Infinity || item.max === -Infinity)) {
+                    return null;
+                } else if (item.scale.type === "categorical" && item.totalCounts === 0) {
+                    return null;
+                }
                 const scale = item.scale;
                 if (scale.type === "numerical") {
                     return displayNumericalAnswer(item, scale);
