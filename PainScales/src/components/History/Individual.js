@@ -1,15 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { View, Text, TouchableOpacity, Alert, FlatList, ScrollView, Image } from 'react-native';
-import { PainScaleContext } from '../context/PainScaleContext';
-import { CATEGORIES, PainScaleData } from '../services/PainScaleData';
+import { PainScaleContext } from '../../context/PainScaleContext';
+import { CATEGORIES, PainScaleData } from '../../services/PainScaleData';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { StyleSheet } from 'react-native';
 import { Dimensions } from 'react-native';
-import {PrimaryColor, SecondaryColor} from '../utils/Constants';
+import {PrimaryColor, SecondaryColor} from '../../utils/Constants';
 import Icon from 'react-native-vector-icons/Ionicons'; 
 import { FontAwesome } from '@expo/vector-icons'; 
-import CircularProgress from 'react-native-circular-progress-indicator';
-import { setOpacity, calculateThumbColor } from '../utils/PainScaleUtils';
+import { setOpacity, calculateThumbColor } from '../../utils/PainScaleUtils';
+import CustomCircularProgress from './circularProgress';
 
 
 function formatDate(isoString) {
@@ -55,21 +55,7 @@ const HistoryIndividual = () => {
         return (
             <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
                 <View style={styles.circularProgressStyle}>
-                    <CircularProgress
-                        value={(answer-scale.scaleMin) / (scale.scaleMax-scale.scaleMin) * 100}
-                        maxValue={100}
-                        duration={0}
-                        
-                        showProgressValue={false}
-                        title={answer.toString()}
-                        inActiveStrokeColor={color}
-                        inActiveStrokeOpacity={0.2}
-                        titleColor={"black"}
-                        titleFontSize={20}
-                        titleStyle={{fontWeight: 'bold'}}
-                        activeStrokeColor={color}
-                        radius={40}
-                />
+                    <CustomCircularProgress value={answer} color={color} scale={scale} radius={40}/>
                 </View>
               
         

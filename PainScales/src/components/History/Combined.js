@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, TouchableOpacity, FlatList, ScrollView, Image } from 'react-native';
-import { PainScaleContext } from '../context/PainScaleContext';
-import { CATEGORIES, PainScaleData } from '../services/PainScaleData';
+import { PainScaleContext } from '../../context/PainScaleContext';
+import { CATEGORIES, PainScaleData } from '../../services/PainScaleData';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { StyleSheet } from 'react-native';
-import {PrimaryColor, SecondaryColor} from '../utils/Constants';
-import CircularProgress from 'react-native-circular-progress-indicator';
-import { calculateThumbColor, lerpColor } from '../utils/PainScaleUtils';
+import {PrimaryColor, SecondaryColor} from '../../utils/Constants';
+import { calculateThumbColor, lerpColor } from '../../utils/PainScaleUtils';
+import CustomCircularProgress from './circularProgress';
 
 
 function formatDate(isoString) {
@@ -70,57 +70,18 @@ const HistoryCombined = () => {
                 </View>
                 <View style={styles.numericalStats}>
                     <View style={styles.circularProgressStyle}>
-                        <CircularProgress
-                            value={(item.min-scale.scaleMin) / (scale.scaleMax-scale.scaleMin) * 100}
-                            maxValue={100}
-                            duration={0}
-                            showProgressValue={false}
-                            title={`${item.min}`}
-                            inActiveStrokeColor={colorMin}
-                            inActiveStrokeOpacity={0.2}
-                            titleColor={"black"}
-                            titleFontSize={20}
-                            titleStyle={{fontWeight: 'bold'}}
-                            activeStrokeColor={colorMin}
-                            radius={30}
-                        />
+                        <CustomCircularProgress value={item.min} color={colorMin} scale={scale} radius={30}/>
                         <Text style={styles.numericalTextTitle}>Minimum</Text>
 
                         
                     
                     </View>
                     <View style={styles.circularProgressStyle}>
-                        <CircularProgress
-                            value={(item.mean-scale.scaleMin) / (scale.scaleMax-scale.scaleMin) * 100}
-                            maxValue={100}
-                            duration={0}
-                            showProgressValue={false}
-                            title={`${item.mean}`}
-                            inActiveStrokeColor={colorMid}
-                            inActiveStrokeOpacity={0.2}
-                            titleColor={"black"}
-                            titleFontSize={20}
-                            titleStyle={{fontWeight: 'bold'}}
-                            activeStrokeColor={colorMid}
-                            radius={40}
-                        />
+                        <CustomCircularProgress value={item.mean} color={colorMid} scale={scale} radius={40}/>
                         <Text style={styles.numericalTextTitle}>Mean</Text>
                     </View>
                     <View style={styles.circularProgressStyle}>
-                        <CircularProgress
-                            value={(item.max-scale.scaleMin) / (scale.scaleMax-scale.scaleMin) * 100}
-                            maxValue={100}
-                            duration={0}
-                            showProgressValue={false}
-                            title={`${item.max}`}
-                            inActiveStrokeColor={colorMax}
-                            inActiveStrokeOpacity={0.2}
-                            titleColor={"black"}
-                            titleFontSize={20}
-                            titleStyle={{fontWeight: 'bold'}}
-                            activeStrokeColor={colorMax}
-                            radius={30}
-                        />
+                        <CustomCircularProgress value={item.max} color={colorMax} scale={scale} radius={30}/>
                         <Text style={styles.numericalTextTitle}>Maximum</Text>
                     </View>
                 </View>
@@ -134,7 +95,7 @@ const HistoryCombined = () => {
             const answers = scaleHistory.map(item => item.answer);
             const min = Math.min(...answers);
             const max = Math.max(...answers);
-            const mean = answers.reduce((a, b) => a + b, 0) / answers.length;
+            const mean = Math.round(answers.reduce((a, b) => a + b, 0) / answers.length);
             const totalCounts = answers.length;
             return { scale, min, mean, max, totalCounts };
         } else if (scale.type === "categorical") {
