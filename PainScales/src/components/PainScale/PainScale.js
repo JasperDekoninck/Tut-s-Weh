@@ -10,7 +10,6 @@ const PainScale = ({ scale }) => {
 
     const { addToHistory } = React.useContext(PainScaleContext);
 
-
     // set variables
     const [answer, setAnswer] = React.useState(0);
     const [fixScaleX, setFixScaleX] = React.useState(true);

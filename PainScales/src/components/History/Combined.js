@@ -102,7 +102,6 @@ const HistoryCombined = () => {
             const optionCounts = scale.options.map(option => {
                 const count = scaleHistory.filter(item => item.answer === option.id).length;
                 const percentage = Math.round(count / scaleHistory.length * 100);
-                // round percentage 
                 return { option, count, percentage };
             });
             const totalCounts = optionCounts.reduce((a, b) => a + b.count, 0);
