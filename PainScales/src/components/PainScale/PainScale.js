@@ -1,10 +1,10 @@
 import React from 'react';
-import { View, Text, Image, Button, TouchableOpacity } from 'react-native';
+import { View, Text, Image, TouchableOpacity } from 'react-native';
 import { showMessage } from "react-native-flash-message";
 import Slider from '@react-native-community/slider';
 import styles from './PainScale.styles';
 import { PainScaleContext } from '../../context/PainScaleContext';
-import { setOpacity, lerpColor, calculateThumbColor } from '../../utils/PainScaleUtils';
+import { setOpacity, calculateThumbColor } from '../../utils/PainScaleUtils';
 
 const PainScale = ({ scale }) => {
 

@@ -11,9 +11,6 @@ import { FontAwesome } from '@expo/vector-icons';
 import CircularProgress from 'react-native-circular-progress-indicator';
 import { setOpacity, calculateThumbColor } from '../utils/PainScaleUtils';
 
-const vh = Dimensions.get('window').height;
-const vw = Dimensions.get('window').width;
-
 
 function formatDate(isoString) {
     const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -38,23 +35,6 @@ function formatTime(isoString) {
 }
 
 const HistoryIndividual = () => {
-
-    // const { addToHistory } = React.useContext(PainScaleContext);
-    // React.useEffect(() => {
-    //     addToHistory({
-    //         date: new Date("2023-06-06T00:00:00.000Z"),
-    //         scale_id: "1",
-    //         answer: 5,
-    //     });
-    //     addToHistory({
-    //         date: new Date("2023-06-07T00:00:00.000Z"),
-    //         scale_id: "1",
-    //         answer: 5,
-    //     });
-    // }
-    // , []);
-
-
     const { history, deleteFromHistory } = React.useContext(PainScaleContext);
     
     const scales = PainScaleData;
@@ -66,9 +46,6 @@ const HistoryIndividual = () => {
 
     const [displayScaleList, setDisplayScaleList] = useState(false);
     const [displayCategoryList, setDisplayCategoryList] = useState(false);
-
-    // initialize dict of normalized values for each scale
-    const [normalizedValues, setNormalizedValues] = useState({})
 
     const displayNumericalAnswer = (answer, item_id, scale) => {
         let opacity = setOpacity(answer, scale);
