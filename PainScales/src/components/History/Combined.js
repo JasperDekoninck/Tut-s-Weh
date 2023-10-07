@@ -237,13 +237,6 @@ const HistoryCombined = () => {
 }
 
 const styles = StyleSheet.create({
-    dateContainer: {
-        flex: 1,
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: 10,
-        marginTop: 10
-    },
     optionCount: {
         alignItems: 'center',
         marginBottom: 10,
@@ -267,15 +260,6 @@ const styles = StyleSheet.create({
         alignItems: 'flex-end',
 
     },
-    scale_category_button : {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        backgroundColor: '#fff',
-        padding: 20,
-        borderWidth: 1,
-        borderColor: '#ddd',
-    },
     circularProgressStyle: {
         marginHorizontal: 5,
         marginBottom: 10,
@@ -294,11 +278,6 @@ const styles = StyleSheet.create({
         color: SecondaryColor,
         textAlign: 'center',
         fontSize: 12,
-    },
-    line: {
-        flex: 1,
-        height: 2,
-        backgroundColor: 'lightgrey',
     },
     flatListStyle: {
         zIndex: -1
@@ -321,30 +300,6 @@ const styles = StyleSheet.create({
         width: 120,
         textAlign: 'center',
     },
-    dropdownpicker: {
-        width: 150,
-        height: 20
-    },
-    dateText: {
-        color: 'grey',
-        textAlign: 'center',
-        fontSize: 16,
-        paddingLeft: 10,
-        paddingRight: 10,
-    },
-    entryWrapper: {
-        
-    },
-    smallDate: {
-        color: SecondaryColor,
-        textAlign: 'center',
-        fontSize: 11,
-        marginBottom: -3,
-        marginTop: -3
-    },
-    leftCard: {
-        width: "100%"
-    },
     card: {
         flex: 1,
         flexDirection: 'column',
@@ -355,14 +310,6 @@ const styles = StyleSheet.create({
         marginLeft: 10,
         marginRight: 10,
         overflow: 'hidden',
-    },
-    iconContainer: {
-        backgroundColor: "white",
-        padding: 5,
-        position: 'absolute',
-        right: 0,
-        top: 0,
-        height: 30
     },
     title: {
         fontWeight: "bold",
@@ -380,9 +327,6 @@ const styles = StyleSheet.create({
         fontSize: 16,
         marginBottom: 5,
         padding: 10
-    },
-    optionContent: {
-        alignItems: 'center',
     },
 
     optionImage: {

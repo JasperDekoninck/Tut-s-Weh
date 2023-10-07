@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import HistoryIndividual from './HistoryIndividual';
-import HistoryCombined from './HistoryCombined';
+import HistoryIndividual from '../components/History/HistoryIndividual';
+import HistoryCombined from '../components/History/HistoryCombined';
 import { View, useWindowDimensions, Text } from 'react-native';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import { getLastSelectedHistory, setLastSelectedHistory } from '../services/selectedHistory';

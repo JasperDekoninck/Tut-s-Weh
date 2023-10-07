@@ -358,19 +358,12 @@ const styles = StyleSheet.create({
     dataSelectorText: {
         color: "white"
     },
-    dropdownpicker: {
-        width: 150,
-        height: 20
-    },
     dateText: {
         color: 'grey',
         textAlign: 'center',
         fontSize: 16,
         paddingLeft: 10,
         paddingRight: 10,
-    },
-    entryWrapper: {
-        
     },
     smallDate: {
         color: SecondaryColor,

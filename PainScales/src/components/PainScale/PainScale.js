@@ -8,12 +8,14 @@ import { setOpacity, calculateThumbColor } from '../../utils/PainScaleUtils';
 
 const PainScale = ({ scale }) => {
 
-    const [answer, setAnswer] = React.useState(0);
-
     const { addToHistory } = React.useContext(PainScaleContext);
 
+
+    // set variables
+    const [answer, setAnswer] = React.useState(0);
     const [fixScaleX, setFixScaleX] = React.useState(true);
 
+    // fix slider scale
     React.useEffect(() => {
         setFixScaleX(false);
         const timer = setTimeout(() => {
@@ -22,6 +24,8 @@ const PainScale = ({ scale }) => {
         return () => clearTimeout(timer);
       }, [scale]);
 
+    
+    // handle submit
     const handleAnswerSubmit = () => {
         if(answer !== null) {
             var date = new Date();
@@ -48,6 +52,7 @@ const PainScale = ({ scale }) => {
         }
     }
 
+    // set initial answer
     if (scale.type === 'numerical') {
         React.useEffect(() => {
             setAnswer(scale.scaleMin);
@@ -55,6 +60,7 @@ const PainScale = ({ scale }) => {
         , []);
     }
 
+    // render scale
     const renderNumericalType = () => {
         return (
             <View style={styles.scaleContainer}>
@@ -102,7 +108,8 @@ const PainScale = ({ scale }) => {
                     <TouchableOpacity 
                         key={option.id} 
                         onPress={() => setAnswer(option.id)}
-                        style={[option.id === answer ? styles.selectedOption : styles.option, {height: styles.option.height * scale.height }]}
+                        style={[option.id === answer ? styles.selectedOption : styles.option, 
+                            {height: styles.option.height * scale.height }]}
                     > 
                         <View style={styles.optionContent}>
                             <Image source={option.image} style={styles.optionImage}/>
