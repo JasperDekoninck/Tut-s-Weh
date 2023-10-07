@@ -7,6 +7,17 @@ import { StyleSheet } from 'react-native';
 import {PrimaryColor, SecondaryColor} from '../utils/Constants';
 import CircularProgress from 'react-native-circular-progress-indicator';
 
+
+function formatDate(isoString) {
+    // format as dd/mm/yyyy
+    const date = new Date(isoString);
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    // make sure to add a 0 in front of the day and month if they are only 1 digit
+    return `${day < 10 ? "0" + day : day}/${month < 10 ? "0" + month : month}/${year}`;
+}
+
 const HistoryCombined = () => {
     const { history } = React.useContext(PainScaleContext);
     const scales = PainScaleData;
@@ -174,7 +185,7 @@ const HistoryCombined = () => {
     return <View style={{flex : 1}}>
         <View style={styles.form}>
             <TouchableOpacity onPress={() => setStartDatePickerVisibility(true)} style={styles.dateSelector}>
-                <Text style={styles.dataSelectorText}> Set Start Date</Text>
+                <Text style={styles.dataSelectorText}>From: {formatDate(startDate)}</Text>
             </TouchableOpacity>
             {isStartDatePickerVisible && (
                 <DateTimePicker
@@ -187,7 +198,7 @@ const HistoryCombined = () => {
             )}
 
             <TouchableOpacity onPress={() => setEndDatePickerVisibility(true)} style={styles.dateSelector}>
-                <Text style={styles.dataSelectorText}> Set End Date</Text>
+                <Text style={styles.dataSelectorText}>To: {formatDate(endDate)}</Text>
             </TouchableOpacity>
             {isEndDatePickerVisible && (
                 <DateTimePicker
@@ -321,7 +332,9 @@ const styles = StyleSheet.create({
         margin: 10
     },
     dataSelectorText: {
-        color: "white"
+        color: "white",
+        width: 120,
+        textAlign: 'center',
     },
     dropdownpicker: {
         width: 150,
