@@ -70,6 +70,7 @@ const HistoryCombined = () => {
             <View style={styles.card}>
                 <View style={styles.header}>
                     <Text style={styles.title}>{scale.question}</Text>
+                    <Text style={styles.subtitle}>Entries: {item.totalCounts} </Text>
                 </View>
                 <View style={styles.numericalStats}>
                     <View style={styles.circularProgressStyle}>
@@ -138,7 +139,8 @@ const HistoryCombined = () => {
             const min = Math.min(...answers);
             const max = Math.max(...answers);
             const mean = answers.reduce((a, b) => a + b, 0) / answers.length;
-            return { scale, min, mean, max };
+            const totalCounts = answers.length;
+            return { scale, min, mean, max, totalCounts };
         } else if (scale.type === "categorical") {
             const optionCounts = scale.options.map(option => {
                 const count = scaleHistory.filter(item => item.answer === option.id).length;
@@ -165,6 +167,9 @@ const HistoryCombined = () => {
         }
     }
     );
+
+    // sort the scalestats by amount of entries
+    scaleStats.sort((a, b) => b.totalCounts - a.totalCounts);
 
     return <View style={{flex : 1}}>
         <View style={styles.form}>
@@ -201,7 +206,7 @@ const HistoryCombined = () => {
             keyExtractor={item => item.scale.id}
             renderItem={({ item }) => {
                 // if scale has no history, don't display it
-                if (item.scale.type === "numerical" && (item.min === Infinity || item.max === -Infinity)) {
+                if (item.scale.type === "numerical" && item.totalCounts === 0) {
                     return null;
                 } else if (item.scale.type === "categorical" && item.totalCounts === 0) {
                     return null;
@@ -213,6 +218,7 @@ const HistoryCombined = () => {
                     return (
                         <View style={styles.card}>
                             <Text style={styles.title}>{scale.question}</Text>
+                            <Text style={styles.subtitle}>Entries: {item.totalCounts} </Text>
                             <FlatList
                                 data={item.optionCounts}
                                 style={styles.optionList}
@@ -287,6 +293,11 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
         justifyContent: 'center',
         marginBottom: 10,
+    },
+    subtitle: {
+        color: SecondaryColor,
+        textAlign: 'center',
+        fontSize: 12,
     },
     line: {
         flex: 1,
