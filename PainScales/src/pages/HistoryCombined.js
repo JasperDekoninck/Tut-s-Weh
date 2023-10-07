@@ -6,6 +6,7 @@ import DateTimePicker from '@react-native-community/datetimepicker';
 import { StyleSheet } from 'react-native';
 import {PrimaryColor, SecondaryColor} from '../utils/Constants';
 import CircularProgress from 'react-native-circular-progress-indicator';
+import { calculateThumbColor, lerpColor } from '../utils/PainScaleUtils';
 
 
 function formatDate(isoString) {
@@ -38,22 +39,6 @@ const HistoryCombined = () => {
         setEndDate(date);
     };
 
-    const lerpColor = (color1, color2, t) => {
-        let r = color1[0] + t * (color2[0] - color1[0]);
-        let g = color1[1] + t * (color2[1] - color1[1]);
-        let b = color1[2] + t * (color2[2] - color1[2]);
-        return `rgb(${r}, ${g}, ${b})`;
-    }
-
-    const calculateThumbColor = (t, scale) => {
-        if (t < 0.5) {
-            return lerpColor(scale.startColor, scale.midColor, t*2); // lerp from startColor to midColor
-        }
-        else {
-            return lerpColor(scale.midColor, scale.endColor, (t-0.5)*2); // lerp from midColor to endColor
-        }
-    }
-
     let onlyCorrectHistory = history.filter(item => scales.find(scale => scale.id === item.scale_id));
     const [filteredHistory, setFilteredHistory] = useState(onlyCorrectHistory);
 
@@ -74,9 +59,9 @@ const HistoryCombined = () => {
     }, [history, startDate, endDate]);
 
     const displayNumericalAnswer = (item, scale) => {
-        let colorMin = calculateThumbColor((item.min-scale.scaleMin) / (scale.scaleMax-scale.scaleMin), scale);
-        let colorMid = calculateThumbColor((item.mean-scale.scaleMin) / (scale.scaleMax-scale.scaleMin), scale);
-        let colorMax = calculateThumbColor((item.max-scale.scaleMin) / (scale.scaleMax-scale.scaleMin), scale);
+        let colorMin = calculateThumbColor(item.min, scale);
+        let colorMid = calculateThumbColor(item.mean, scale);
+        let colorMax = calculateThumbColor(item.max, scale);
         return (
             <View style={styles.card}>
                 <View style={styles.header}>

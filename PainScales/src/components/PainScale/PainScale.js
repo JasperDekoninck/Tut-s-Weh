@@ -4,6 +4,7 @@ import { showMessage } from "react-native-flash-message";
 import Slider from '@react-native-community/slider';
 import styles from './PainScale.styles';
 import { PainScaleContext } from '../../context/PainScaleContext';
+import { setOpacity, lerpColor, calculateThumbColor } from '../../utils/PainScaleUtils';
 
 const PainScale = ({ scale }) => {
 
@@ -54,38 +55,6 @@ const PainScale = ({ scale }) => {
         , []);
     }
 
-    const lerpColor = (color1, color2, t) => {
-        let r = color1[0] + t * (color2[0] - color1[0]);
-        let g = color1[1] + t * (color2[1] - color1[1]);
-        let b = color1[2] + t * (color2[2] - color1[2]);
-        return `rgb(${r}, ${g}, ${b})`;
-    }
-
-    const calculateThumbColor = (value) => {
-        let t = (value-scale.scaleMin) / (scale.scaleMax-scale.scaleMin); // normalize value
-        if (t < 0.5) {
-            return lerpColor(scale.startColor, scale.midColor, t*2); // lerp from startColor to midColor
-        }
-        else {
-            return lerpColor(scale.midColor, scale.endColor, (t-0.5)*2); // lerp from midColor to endColor
-        }
-    }
-
-    const setOpacity = (value) => {
-        let t = (value-scale.scaleMin) / (scale.scaleMax-scale.scaleMin); // normalize value
-        let opacityMin = 0.2;
-        let opacityMax = 0.2;
-        let opacityMid = 0.2;
-        if (t < 0.5) {
-            opacityMid += (0.8 * t * 2);
-            opacityMin += (0.8 * (1 - t * 2)); 
-        } else {
-            opacityMax += (0.8 * (t - 0.5) * 2);
-            opacityMid += (0.8 * (1 - (t - 0.5) * 2));
-        }
-        return [opacityMin, opacityMid, opacityMax];
-    }
-
     const renderNumericalType = () => {
         return (
             <View style={styles.scaleContainer}>
@@ -94,10 +63,10 @@ const PainScale = ({ scale }) => {
                     minimumValue={scale.scaleMin}
                     maximumValue={scale.scaleMax}
                     style={ fixScaleX ? styles.slider : [styles.slider, { transform: [{ scaleX: 1 }, {scaleY : 2}, {rotate: "90deg"}] }] } // Add this
-                    minimumTrackTintColor={calculateThumbColor(answer)}
-                    maximumTrackTintColor={calculateThumbColor(answer)}
+                    minimumTrackTintColor={calculateThumbColor(answer, scale)}
+                    maximumTrackTintColor={calculateThumbColor(answer, scale)}
                     step={scale.step}
-                    thumbTintColor={calculateThumbColor(answer)}
+                    thumbTintColor={calculateThumbColor(answer, scale)}
                     value={answer}
                 />
                 <View style={styles.scaleTextContainer}>
@@ -105,19 +74,19 @@ const PainScale = ({ scale }) => {
                         fontSize: scale.fontSize,
                         color: '#000',
                         textAlign: 'center',
-                        opacity: setOpacity(answer)[0],
+                        opacity: setOpacity(answer, scale)[0],
                     }}>{scale.scaleMinText}</Text>
                     <Text style={{
                         fontSize: scale.fontSize,
                         color: '#000',
                         textAlign: 'center',
-                        opacity: setOpacity(answer)[1],
+                        opacity: setOpacity(answer, scale)[1],
                     }}>{scale.scaleMidText}</Text>
                     <Text style={{
                         fontSize: scale.fontSize,
                         color: '#000',
                         textAlign: 'center',
-                        opacity: setOpacity(answer)[2],
+                        opacity: setOpacity(answer, scale)[2],
                     }}>{scale.scaleMaxText}</Text>
                 </View>
             </View>

@@ -9,6 +9,7 @@ import {PrimaryColor, SecondaryColor} from '../utils/Constants';
 import Icon from 'react-native-vector-icons/Ionicons'; 
 import { FontAwesome } from '@expo/vector-icons'; 
 import CircularProgress from 'react-native-circular-progress-indicator';
+import { setOpacity, calculateThumbColor } from '../utils/PainScaleUtils';
 
 const vh = Dimensions.get('window').height;
 const vw = Dimensions.get('window').width;
@@ -66,44 +67,12 @@ const HistoryIndividual = () => {
     const [displayScaleList, setDisplayScaleList] = useState(false);
     const [displayCategoryList, setDisplayCategoryList] = useState(false);
 
-    const lerpColor = (color1, color2, t) => {
-        let r = color1[0] + t * (color2[0] - color1[0]);
-        let g = color1[1] + t * (color2[1] - color1[1]);
-        let b = color1[2] + t * (color2[2] - color1[2]);
-        return `rgb(${r}, ${g}, ${b})`;
-    }
-
-    const calculateThumbColor = (t, scale) => {
-        if (t < 0.5) {
-            return lerpColor(scale.startColor, scale.midColor, t*2); // lerp from startColor to midColor
-        }
-        else {
-            return lerpColor(scale.midColor, scale.endColor, (t-0.5)*2); // lerp from midColor to endColor
-        }
-    }
-
-    const setOpacity = (t, scale) => {
-        let startValue = 0.1;
-        let opacityMin = startValue;
-        let opacityMax = startValue;
-        let opacityMid = startValue;
-        if (t < 0.5) {
-            opacityMid += ((1 - startValue) * t * 2);
-            opacityMin += ((1 - startValue) * (1 - t * 2)); 
-        } else {
-            opacityMax += ((1 - startValue) * (t - 0.5) * 2);
-            opacityMid += ((1 - startValue) * (1 - (t - 0.5) * 2));
-        }
-        return [opacityMin, opacityMid, opacityMax];
-    }
-
     // initialize dict of normalized values for each scale
     const [normalizedValues, setNormalizedValues] = useState({})
 
     const displayNumericalAnswer = (answer, item_id, scale) => {
-        var normalizedValue = (answer-scale.scaleMin) / (scale.scaleMax-scale.scaleMin);
-        let opacity = setOpacity(normalizedValue, scale);
-        let color = calculateThumbColor(normalizedValue, scale)
+        let opacity = setOpacity(answer, scale);
+        let color = calculateThumbColor(answer, scale)
         // copy the normalized value
 
         return (
