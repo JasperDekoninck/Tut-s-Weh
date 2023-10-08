@@ -22,7 +22,6 @@ const PainScale = ({ scale }) => {
         }, 0);
         return () => clearTimeout(timer);
       }, [scale]);
-
     
     // handle submit
     const handleAnswerSubmit = () => {
