@@ -1,8 +1,8 @@
 export const CATEGORIES = {
-    INTENSITY: 'intensity',
-    EFFECT: 'affect',
-    TYPE: 'type',
-    FEELING: 'feeling'
+    INTENSITY: 'How strong is your pain?',
+    EFFECT: 'How much does your pain affect you?',
+    TYPE: 'What kind of pain do you feel?',
+    FEELING: 'How are you feeling?'
 };
 
 export const PainScaleData = [

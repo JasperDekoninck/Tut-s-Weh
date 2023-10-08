@@ -147,11 +147,14 @@ const HistoryIndividual = () => {
     const [selectedCategory, setSelectedCategory] = useState(null);
 
     const handleSetSelectedScale = (scale_id) => {
+        setSelectedCategory(null);
         setSelectedScale(scale_id);
         setDisplayScaleList(false);
     };
 
     const handleSetSelectedCategory = (category) => {
+        // set selected scale to all
+        setSelectedScale(null);
         setSelectedCategory(category);
         setDisplayCategoryList(false);
     };
