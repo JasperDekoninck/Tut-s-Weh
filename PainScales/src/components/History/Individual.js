@@ -4,7 +4,6 @@ import { PainScaleContext } from '../../context/PainScaleContext';
 import { CATEGORIES, PainScaleData } from '../../services/PainScaleData';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { StyleSheet } from 'react-native';
-import { Dimensions } from 'react-native';
 import {PrimaryColor, SecondaryColor} from '../../utils/Constants';
 import Icon from 'react-native-vector-icons/Ionicons'; 
 import { FontAwesome } from '@expo/vector-icons'; 
@@ -16,9 +15,9 @@ function formatDate(isoString) {
     const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     const monthsOfYear = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]; 
     const date = new Date(isoString);
-    const day = daysOfWeek[date.getUTCDay()];
-    const dateOfMonth = String(date.getUTCDate()).padStart(2, '0');
-    const month = monthsOfYear[date.getUTCMonth()];
+    const day = daysOfWeek[date.getDay()];
+    const dateOfMonth = String(date.getDate()).padStart(2, '0');
+    const month = monthsOfYear[date.getMonth()];
     const year = date.getUTCFullYear();
     return `${day}, ${dateOfMonth} ${month} ${year}`;
 }
