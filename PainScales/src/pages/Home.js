@@ -1,9 +1,11 @@
 import * as React from 'react';
+import { useEffect } from 'react';
 import { View, useWindowDimensions, Text } from 'react-native';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import { IntensityPage, FeelingPage, AffectPage, TypePage } from './PainScale';
 import { setLastSelectedCategoryId, getLastSelectedCategoryId } from '../services/selectedPainCategory';
 import { PrimaryColor, SecondaryColor } from '../utils/Constants';
+import FlashMessage from 'react-native-flash-message';
 
 const IntensityRoute = () => <IntensityPage />;
 const FeelingRoute = () => <FeelingPage />;
@@ -53,8 +55,9 @@ export default function Home() {
   const renderTabBar = props => (
     <TabBar
       {...props}
+      
       indicatorStyle={{ backgroundColor: 'white' }} // active tab underline color
-      style={{ backgroundColor: PrimaryColor }} // TabBar background
+      style={{ backgroundColor: PrimaryColor, height: 50 }} // TabBar background
       indicatorContainerStyle={{backgroundColor: PrimaryColor}}
       renderLabel={({ route, focused, color }) => (
         <Text style={{ color: focused ? PrimaryColor : 'white', backgroundColor: focused ? "white" : PrimaryColor, paddingLeft: 12, 
@@ -66,13 +69,16 @@ export default function Home() {
   );
 
   return (
-    <TabView
-      navigationState={{ index, routes }}
-      renderScene={renderScene}
-      renderTabBar={renderTabBar}
-      onIndexChange={handleIndexChange}
-      initialLayout={{ width: layout.width }}
-      animationEnabled={false}
-    />
+    <>
+      <TabView
+        navigationState={{ index, routes }}
+        renderScene={renderScene}
+        renderTabBar={renderTabBar}
+        onIndexChange={handleIndexChange}
+        initialLayout={{ width: layout.width }}
+        animationEnabled={true}
+      />
+      <FlashMessage position="top" style={{marginTop: 50}}/>
+    </>
   );
 }

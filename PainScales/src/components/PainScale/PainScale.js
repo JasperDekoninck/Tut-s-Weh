@@ -11,7 +11,7 @@ const PainScale = ({ scale }) => {
     const { addToHistory } = React.useContext(PainScaleContext);
 
     // set variables
-    const [answer, setAnswer] = React.useState(0);
+    const [answer, setAnswer] = React.useState(null);
     const [fixScaleX, setFixScaleX] = React.useState(true);
 
     // fix slider scale
@@ -39,10 +39,13 @@ const PainScale = ({ scale }) => {
                 autoHide: true,
                 duration: 3000 // 3 seconds
             });
-            setAnswer(scale.scaleMin);
+            setAnswer(null);
+            if (scale.type === 'numerical') {
+                setAnswer(scale.scaleMin);
+            }
         } else {
             showMessage({ // Updates here to display on top
-                message: "Please select your pain scale before submitting",
+                message: "Please select your answer before submitting",
                 type: "warning",
                 autoHide: true,
                 duration: 3000 // 3 seconds

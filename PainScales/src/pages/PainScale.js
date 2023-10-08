@@ -4,7 +4,6 @@ import { CATEGORIES, PainScaleData } from '../services/PainScaleData';
 import PainScale from '../components/PainScale/PainScale';
 import { FontAwesome } from '@expo/vector-icons'; 
 import {PrimaryColor, SecondaryColor} from '../utils/Constants';
-import FlashMessage from 'react-native-flash-message';
 import { setLastSelectedScaleId, getLastSelectedScaleId } from '../services/selectedPainScale';
 
 const createCategoryPage = (category) => {
@@ -45,7 +44,6 @@ const createCategoryPage = (category) => {
       
       return (
         <View style={styles.container}>
-            <FlashMessage position="top" />
                 {displayScaleList ? (
                     <ScrollView>
                         {scales.map(scale => (
