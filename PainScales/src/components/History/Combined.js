@@ -159,6 +159,10 @@ const HistoryCombined = () => {
         <FlatList
             data={scaleStats}
             style={styles.flatListStyle}
+            removeClippedSubviews
+            maxToRenderPerBatch={10}
+            initialNumToRender={5}
+            windowSize={7}
             keyExtractor={item => item.scale.id}
             renderItem={({ item }) => {
                 // if scale has no history, don't display it

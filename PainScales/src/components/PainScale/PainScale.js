@@ -97,8 +97,6 @@ const PainScale = ({ scale }) => {
                     }}>{scale.scaleMaxText}</Text>
                 </View>
             </View>
-            
-            
         )
     }
 

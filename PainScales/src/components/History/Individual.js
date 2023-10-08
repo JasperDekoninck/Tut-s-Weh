@@ -47,9 +47,9 @@ const HistoryIndividual = () => {
     const [displayScaleList, setDisplayScaleList] = useState(false);
     const [displayCategoryList, setDisplayCategoryList] = useState(false);
 
-    const displayNumericalAnswer = (answer, item_id, scale) => {
+    function DisplayNumericalAnswer(answer, scale) {
         let opacity = setOpacity(answer, scale);
-        let color = calculateThumbColor(answer, scale)
+        let color = calculateThumbColor(answer, scale);
         // copy the normalized value
 
         return (
@@ -68,7 +68,9 @@ const HistoryIndividual = () => {
             );
     }
 
-    const displayCategoricalAnswer = (answer, item_id, scale) => {
+    // DisplayNumericalAnswer = React.memo(DisplayNumericalAnswer);
+
+    function DisplayCategoricalAnswer(answer, scale) {
         // display the image associated with the answer (which is the id of the option) next to the text associated with the option
         let option = scale.options.find(option => option.id === answer);
         return (
@@ -78,15 +80,16 @@ const HistoryIndividual = () => {
             </View>
         )
     }
-                
 
-    const displayAnswer = (answer, item_id, scale) => {
+    function displayAnswer(answer, scale) {
         if (scale.type === "numerical") {
-            return displayNumericalAnswer(answer, item_id, scale);
-        } else if (scale.type === "categorical") {
-            return displayCategoricalAnswer(answer, item_id, scale);
+            return DisplayNumericalAnswer(answer, scale);
+        } else {
+            return DisplayCategoricalAnswer(answer, scale);
         }
     }
+
+    // DisplayCategoricalAnswer = React.memo(DisplayCategoricalAnswer);
 
     useEffect(() => {
         if (selectedDate !== null) {
@@ -164,7 +167,7 @@ const HistoryIndividual = () => {
     useEffect(() => {
         let newHistory = [...onlyCorrectHistory];
         if (selectedScale !== null) {
-          newHistory = newHistory.filter(item => item.scale_id === selectedScale)
+        newHistory = newHistory.filter(item => item.scale_id === selectedScale)
         }
         if (selectedCategory !== null) {
             newHistory = newHistory.filter(item => scales.find(scale => scale.id === item.scale_id).category === selectedCategory)
@@ -177,6 +180,7 @@ const HistoryIndividual = () => {
         });
 
         setFilteredHistory(newHistory);
+        
 
     }, [history, selectedScale, selectedCategory]);
 
@@ -252,6 +256,10 @@ const HistoryIndividual = () => {
                     data={filteredHistory}
                     style={styles.flatListStyle}
                     keyExtractor={item => item.id}
+                    removeClippedSubviews
+                    maxToRenderPerBatch={6}
+                    initialNumToRender={5}
+                    windowSize={6}
                     renderItem={({ item, index }) => {
                         const scale = scales.find(scale => scale.id === item.scale_id);
                         const date = formatDate(item.date);
@@ -278,8 +286,7 @@ const HistoryIndividual = () => {
                                             <Text style={styles.smallDate}>{time}</Text>
                                             <Text style={styles.title}>{scale.question}</Text>
                                         </View>
-                                        
-                                        {displayAnswer(item.answer, item.id, scale)}
+                                        {displayAnswer(item.answer, scale)}
                                     </View>
                                     <TouchableOpacity style={styles.iconContainer} onPress={() => handleDelete(index)}>
                                         <Icon name="close" size={20} color="red" style={styles.bin}/>

@@ -67,6 +67,7 @@ const createCategoryPage = (category) => {
                             scale={selectedScale}
                         />
                     )}
+                    
                     <TouchableOpacity 
                         style={styles.other_scales_button} 
                         onPress={handleSelectOtherScale} 
