@@ -46,6 +46,8 @@ const HistoryIndividual = () => {
     const [displayScaleList, setDisplayScaleList] = useState(false);
     const [displayCategoryList, setDisplayCategoryList] = useState(false);
 
+    const { addToHistory } = React.useContext(PainScaleContext);
+
     function DisplayNumericalAnswer(answer, scale) {
         let opacity = setOpacity(answer, scale);
         let color = calculateThumbColor(answer, scale);
