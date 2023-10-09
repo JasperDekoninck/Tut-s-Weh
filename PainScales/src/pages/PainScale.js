@@ -14,8 +14,6 @@ const createCategoryPage = (category) => {
       const scales = PainScaleData.filter(scale => scale.category === CATEGORIES[category]);
 
       // Load each Pain Scale statically from the beginning
-        
-  
       const handleScaleSelect = (id) => {
         setSelectedScale(scales.find(scale => scale.id === id));
         setLastSelectedScaleId(category, id); // Save the selected Scale ID

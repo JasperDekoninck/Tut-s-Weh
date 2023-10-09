@@ -19,12 +19,28 @@ function formatDate(isoString) {
     return `${day < 10 ? "0" + day : day}/${month < 10 ? "0" + month : month}/${year}`;
 }
 
+function numberOfUniqueDays(history) {
+    const uniqueDays = [];
+    history.forEach(item => {
+        const itemDate = new Date(item.date);
+        // make sure to return true as soon as the date is correct, disregard the time
+        // to do so we need to set the time to 00:00:00
+        itemDate.setHours(0,0,0,0);
+        const found = uniqueDays.find(day => day.getTime() === itemDate.getTime());
+        if (!found) {
+            uniqueDays.push(itemDate);
+        }
+    });
+    return uniqueDays.length;
+}
+
 const HistoryCombined = () => {
     const { history } = React.useContext(PainScaleContext);
     const scales = PainScaleData;
 
-    const [startDate, setStartDate] = useState(new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)); // default to last week
+    const [startDate, setStartDate] = useState(new Date(Date.now() - 6 * 24 * 60 * 60 * 1000)); // default to last week
     const [endDate, setEndDate] = useState(new Date(Date.now())); // default to today
+    const [nDays, setNDays] = useState(7); // default to last week [7 days]
 
     const [isStartDatePickerVisible, setStartDatePickerVisibility] = useState(false);
     const [isEndDatePickerVisible, setEndDatePickerVisibility] = useState(false);
@@ -53,6 +69,10 @@ const HistoryCombined = () => {
             endDate.setHours(0,0,0,0);
             return itemDate >= startDate && itemDate <= endDate;
         });
+        // get number of days between start date and end date
+        const diffTime = Math.abs(endDate - startDate);
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1;
+        setNDays(diffDays);
 
         setFilteredHistory(newHistory);
 
@@ -62,19 +82,20 @@ const HistoryCombined = () => {
         let colorMin = calculateThumbColor(item.min, scale);
         let colorMid = calculateThumbColor(item.mean, scale);
         let colorMax = calculateThumbColor(item.max, scale);
+        let color25 = calculateThumbColor(item.percentile25, scale);
+        let color75 = calculateThumbColor(item.percentile75, scale);
+        let colorMedian = calculateThumbColor(item.median, scale);
         return (
             <View style={styles.card}>
                 <View style={styles.header}>
                     <Text style={styles.title}>{scale.question}</Text>
                     <Text style={styles.subtitle}>Entries: {item.totalCounts} </Text>
+                    <Text style={styles.subtitle}>Days with entries: {item.days} / {nDays} </Text>
                 </View>
                 <View style={styles.numericalStats}>
                     <View style={styles.circularProgressStyle}>
                         <CustomCircularProgress value={item.min} color={colorMin} scale={scale} radius={30}/>
                         <Text style={styles.numericalTextTitle}>Minimum</Text>
-
-                        
-                    
                     </View>
                     <View style={styles.circularProgressStyle}>
                         <CustomCircularProgress value={item.mean} color={colorMid} scale={scale} radius={40}/>
@@ -85,27 +106,46 @@ const HistoryCombined = () => {
                         <Text style={styles.numericalTextTitle}>Maximum</Text>
                     </View>
                 </View>
+                <View style={styles.numericalStats}>
+                    <View style={styles.circularProgressStyle}>
+                        <CustomCircularProgress value={item.percentile25} color={color25} scale={scale} radius={30}/>
+                        <Text style={styles.numericalTextTitle}>25% percentile</Text>
+                    </View>
+                    <View style={styles.circularProgressStyle}>
+                        <CustomCircularProgress value={item.median} color={colorMedian} scale={scale} radius={40}/>
+                        <Text style={styles.numericalTextTitle}>Median</Text>
+                    </View>
+                    <View style={styles.circularProgressStyle}>
+                        <CustomCircularProgress value={item.percentile75} color={color75} scale={scale} radius={30}/>
+                        <Text style={styles.numericalTextTitle}>75% Percentile</Text>
+                    </View>
+                </View>
             </View>
         );
     };
 
     const scaleStats = scales.map(scale => {
         const scaleHistory = filteredHistory.filter(item => item.scale_id === scale.id);
+        const days = numberOfUniqueDays(scaleHistory);
         if (scale.type === "numerical") {
             const answers = scaleHistory.map(item => item.answer);
             const min = Math.min(...answers);
             const max = Math.max(...answers);
             const mean = Math.round(answers.reduce((a, b) => a + b, 0) / answers.length);
+            const median = answers.sort((a, b) => a - b)[Math.floor(answers.length / 2)];
+            const percentile25 = answers.sort((a, b) => a - b)[Math.floor(answers.length / 4)];
+            const percentile75 = answers.sort((a, b) => a - b)[Math.floor(answers.length * 3 / 4)];
             const totalCounts = answers.length;
-            return { scale, min, mean, max, totalCounts };
+            return { scale, min, mean, max, totalCounts, days, median, percentile25, percentile75 };
         } else if (scale.type === "categorical") {
             const optionCounts = scale.options.map(option => {
                 const count = scaleHistory.filter(item => item.answer === option.id).length;
                 const percentage = Math.round(count / scaleHistory.length * 100);
-                return { option, count, percentage };
+                const daysOption = numberOfUniqueDays(scaleHistory.filter(item => item.answer === option.id));
+                return { option, count, percentage, daysOption };
             });
             const totalCounts = optionCounts.reduce((a, b) => a + b.count, 0);
-            return { scale, optionCounts, totalCounts};
+            return { scale, optionCounts, totalCounts, days};
         }
     });
 
@@ -189,6 +229,7 @@ const HistoryCombined = () => {
                                         <Image source={optionCount.option.image} style={styles.optionImage}/>
                                         <Text style={styles.optionText}>{optionCount.option.text}</Text>
                                         <Text style={styles.percentage}>{optionCount.percentage}%</Text>
+                                        <Text style={styles.subtitle}>Days: {optionCount.daysOption} / {nDays} </Text>
                                     </View>
                                 )}
                             />
