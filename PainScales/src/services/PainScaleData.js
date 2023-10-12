@@ -1,17 +1,17 @@
 export const CATEGORIES = {
-    INTENSITY: 'How strong is your pain?',
-    EFFECT: 'How much does your pain affect you?',
-    TYPE: 'What kind of pain do you feel?',
-    FEELING: 'How are you feeling?'
+    INTENSITY: 'Wie stark sind Ihre Schmerzen?',
+    EFFECT: 'Wie stark beeinträchtigen Ihre Schmerzen Sie?',
+    TYPE: 'Welche Art von Schmerz empfinden Sie?',
+    FEELING: 'Wie geht es Ihnen?'
 };
 
 export const PainScaleData = [
     {
         id: '1',
         type: 'numerical',
-        name: 'How strong is your pain?',
+        name: 'Wie stark sind Ihre Schmerzen?',
         category: CATEGORIES.INTENSITY,
-        question: 'How strong is your pain?',
+        question: 'Wie stark sind Ihre Schmerzen?',
         scaleMinText: 'Ich habe keine Schmerzen.',
         scaleMidText: "Meine Schmerzen sind aushaltbar.",
         scaleMaxText: 'Meine Schmerzen sind unaushaltbar.',
@@ -26,11 +26,11 @@ export const PainScaleData = [
     {
         id: '3',
         type: 'categorical',
-        name: 'How much does your pain restrict you in your everyday life? (Bee)',
+        name: 'Wie sehr schränken Sie Ihre Schmerzen in Ihrem Alltag ein? (Biene)',
         category: CATEGORIES.EFFECT,
         fontSize: 0.7,
         height: 1.35,
-        question: 'How much does your pain restrict you in your everyday life?',
+        question: 'Wie sehr schränken Sie Ihre Schmerzen in Ihrem Alltag ein?',
         options: [
             { id: 1, text: 'Meine Schmerzen sind fast nicht merkbar, ich kann alles prima mitmachen.', image: require('../../assets/Bee/1.png') },
             { id: 2, text: 'Meine Schmerzen sind leicht, aber ich möchte dennoch nicht alles im Alltag mitmachen.', image: require('../../assets/Bee/2.png') },
@@ -40,11 +40,11 @@ export const PainScaleData = [
     {
         id: '4',
         type: 'categorical',
-        name: 'How much does your pain restrict you in your everyday life? (Turtle)',
+        name: 'Wie sehr schränken Sie Ihre Schmerzen in Ihrem Alltag ein? (Schildkröte)',
         category: CATEGORIES.EFFECT,
         fontSize: 0.7,
         height: 1.35,
-        question: 'How much does your pain restrict you in your everyday life?',
+        question: 'Wie sehr schränken Sie Ihre Schmerzen in Ihrem Alltag ein?',
         options: [
             { id: 1, text: 'Meine Schmerzen sind fast nicht merkbar, ich kann alles prima mitmachen.', image: require('../../assets/Turtle/1.png') },
             { id: 2, text: 'Meine Schmerzen sind leicht, aber ich möchte dennoch nicht alles im Alltag mitmachen.', image: require('../../assets/Turtle/2.png') },
@@ -54,11 +54,11 @@ export const PainScaleData = [
     {
         id: '5',
         type: 'categorical',
-        name: 'How strong/heavy is your pain? (Weight)',
+        name: 'Wie stark/schwer sind Ihre Schmerzen? (Gewicht)',
         category: CATEGORIES.INTENSITY,
         fontSize: 0.65,
         height: 1.35,
-        question: 'How strong/heavy is your pain?',
+        question: 'Wie stark/schwer sind Ihre Schmerzen?',
         options: [
             { id: 1, text: 'Meine Schmerzen sind sehr leicht, sie stören mich überhaupt nicht.', image: require('../../assets/Weight/1.png') },
             { id: 2, text: 'Meine Schmerzen sind leicht, ich merke sie, aber ich kann ohne Einschränkungen meinen Alltag leben.', image: require('../../assets/Weight/2.png') },
@@ -69,11 +69,11 @@ export const PainScaleData = [
     {
         id: '6',
         type: 'categorical',
-        name: 'How does your pain feel?',
+        name: 'Wie fühlen sich Ihre Schmerzen an?',
         category: CATEGORIES.TYPE,
         fontSize: 0.65,
         height: 1.35,
-        question: 'How does your pain feel?',
+        question: 'Wie fühlen sich Ihre Schmerzen an?',
         options: [
             { id: 1, text: 'Meine Schnerzen fühlen sich brennend an.', image: require('../../assets/Type/1.png') },
             { id: 2, text: 'Meine Schmerzen fühlen sich dumpf und hämmernd an.', image: require('../../assets/Type/2.png') },
@@ -84,11 +84,11 @@ export const PainScaleData = [
     {
         id: '7',
         type: 'categorical',
-        name: 'How are you feeling? (Glass)',
+        name: 'Wie geht es Ihnen? (Glas)',
         category: CATEGORIES.FEELING,
         fontSize: 0.75,
         height: 1.35,
-        question: 'How are you feeling?',
+        question: 'Wie geht es Ihnen?',
         options: [
             { id: 1, text: 'Ich fühle mich leer und motivationslos.', image: require('../../assets/Glass/1.png') },
             { id: 2, text: 'Ich fühle mich okay.', image: require('../../assets/Glass/2.png') },
@@ -98,11 +98,11 @@ export const PainScaleData = [
     {
         id: '8',
         type: 'categorical',
-        name: 'How are you feeling? (Car)',
+        name: 'Wie geht es Ihnen? (Auto)',
         category: CATEGORIES.FEELING,
         fontSize: 0.75,
         height: 1.35,
-        question: 'How are you feeling?',
+        question: 'Wie geht es Ihnen?',
         options: [
             { id: 1, text: 'Mir geht es nicht gut, da meine Schmerzen sehr schlimm sind.', image: require('../../assets/Car/1.png') },
             { id: 2, text: 'Mir geht es okay, aber ich habe Schmerzen.', image: require('../../assets/Car/2.png') },

@@ -16,7 +16,7 @@ export default function AppWrapper() {
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <Text style={styles.title}>Pain Scales</Text>
+                <Text style={styles.title}>Tut's weh?</Text>
             </View>
             <NavigationContainer>
                 <Tab.Navigator
@@ -30,11 +30,11 @@ export default function AppWrapper() {
                         iconName = focused
                             ? 'home'
                             : 'home';
-                        } else if (route.name === 'History') {
+                        } else if (route.name === 'Historie') {
                         iconName = focused
                             ? 'history'
                             : 'history';
-                        } else if (route.name === 'Info') {
+                        } else if (route.name === 'Infos') {
                         iconName = focused
                             ? 'info'
                             : 'info';
@@ -58,9 +58,9 @@ export default function AppWrapper() {
                 })}
                 >
                     <Tab.Screen name="Home" component={Home}/>
-                    <Tab.Screen name="History" component={History} />
-                    <Tab.Screen name="Info" component={Info} />
-                    <Tab.Screen name="Settings" component={Settings} />
+                    <Tab.Screen name="Historie" component={History} />
+                    <Tab.Screen name="Infos" component={Info} />
+                    {/* <Tab.Screen name="Settings" component={Settings} /> */}
                 </Tab.Navigator>
                 </NavigationContainer>
         </View>
