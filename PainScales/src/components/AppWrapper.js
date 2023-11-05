@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, Image, StyleSheet } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { MaterialIcons } from '@expo/vector-icons';
@@ -16,7 +16,7 @@ export default function AppWrapper() {
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <Text style={styles.title}>Tut's weh?</Text>
+            <Image source={require("../../assets/logo-nobg.png")} style={styles.image}/>
             </View>
             <NavigationContainer>
                 <Tab.Navigator
@@ -82,5 +82,10 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 22,
         fontWeight: 'bold',
-    }
+    },
+    image: {
+        width: 85,
+        height: 85,
+        resizeMode: 'contain',
+    },
 });

@@ -89,8 +89,8 @@ const HistoryCombined = () => {
             <View style={styles.card}>
                 <View style={styles.header}>
                     <Text style={styles.title}>{scale.question}</Text>
-                    <Text style={styles.subtitle}>Entries: {item.totalCounts} </Text>
-                    <Text style={styles.subtitle}>Days with entries: {item.days} / {nDays} </Text>
+                    <Text style={styles.subtitle}>Einträgen: {item.totalCounts} </Text>
+                    <Text style={styles.subtitle}>Tage mit Einträgen: {item.days} / {nDays} </Text>
                 </View>
                 <View style={styles.numericalStats}>
                     <View style={styles.circularProgressStyle}>
@@ -99,7 +99,7 @@ const HistoryCombined = () => {
                     </View>
                     <View style={styles.circularProgressStyle}>
                         <CustomCircularProgress value={item.mean} color={colorMid} scale={scale} radius={40}/>
-                        <Text style={styles.numericalTextTitle}>Mean</Text>
+                        <Text style={styles.numericalTextTitle}>Mittelwert</Text>
                     </View>
                     <View style={styles.circularProgressStyle}>
                         <CustomCircularProgress value={item.max} color={colorMax} scale={scale} radius={30}/>
@@ -109,7 +109,7 @@ const HistoryCombined = () => {
                 <View style={styles.numericalStats}>
                     <View style={styles.circularProgressStyle}>
                         <CustomCircularProgress value={item.percentile25} color={color25} scale={scale} radius={30}/>
-                        <Text style={styles.numericalTextTitle}>25% percentile</Text>
+                        <Text style={styles.numericalTextTitle}>25% Perzentil</Text>
                     </View>
                     <View style={styles.circularProgressStyle}>
                         <CustomCircularProgress value={item.median} color={colorMedian} scale={scale} radius={40}/>
@@ -117,7 +117,7 @@ const HistoryCombined = () => {
                     </View>
                     <View style={styles.circularProgressStyle}>
                         <CustomCircularProgress value={item.percentile75} color={color75} scale={scale} radius={30}/>
-                        <Text style={styles.numericalTextTitle}>75% Percentile</Text>
+                        <Text style={styles.numericalTextTitle}>75% Perzentil</Text>
                     </View>
                 </View>
             </View>
@@ -217,22 +217,20 @@ const HistoryCombined = () => {
                 } else if (scale.type === "categorical") {
                     return (
                         <View style={styles.card}>
-                            <Text style={styles.title}>{scale.question}</Text>
-                            <Text style={styles.subtitle}>Entries: {item.totalCounts} </Text>
-                            <FlatList
-                                data={item.optionCounts}
-                                style={styles.optionList}
-                                numColumns={2}
-                                keyExtractor={optionCount => optionCount.option.id}
-                                renderItem={({ item: optionCount }) => (
+                            <View style={styles.header}>
+                                <Text style={styles.title}>{scale.question}</Text>
+                                <Text style={styles.subtitle}>Einträgen: {item.totalCounts} </Text>
+                            </View>
+                            <View style={styles.optionsContainer}>
+                                {item.optionCounts.map(optionCount => 
                                     <View style={styles.optionCount} key={optionCount.option.id}>
                                         <Image source={optionCount.option.image} style={styles.optionImage}/>
                                         <Text style={styles.optionText}>{optionCount.option.text}</Text>
                                         <Text style={styles.percentage}>{optionCount.percentage}%</Text>
-                                        <Text style={styles.subtitle}>Days: {optionCount.daysOption} / {nDays} </Text>
+                                        <Text style={styles.subtitle}>Tage: {optionCount.daysOption} / {nDays} </Text>
                                     </View>
                                 )}
-                            />
+                            </View>
                         </View>
                     );
                 }
@@ -255,9 +253,16 @@ const styles = StyleSheet.create({
     optionList: {
         flex: 1,
         justifyContent: 'center',
+        
+        alignItems: 'center',
+    },
+    optionsContainer: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        justifyContent: 'space-evenly',
+        alignItems: 'center',
         marginBottom: 10,
         marginTop: 10,
-        alignItems: 'center',
     },
     numericalStats: {
         flexDirection: 'row', 

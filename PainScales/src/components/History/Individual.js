@@ -54,18 +54,21 @@ const HistoryIndividual = () => {
         // copy the normalized value
 
         return (
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                <View style={styles.circularProgressStyle}>
-                    <CustomCircularProgress value={answer} color={color} scale={scale} radius={40}/>
+            <View style={styles.numericalStyleContainer}>
+                <View style={styles.numericalStyle}>
+                    <View style={styles.circularProgressStyle}>
+                        <CustomCircularProgress value={answer} color={color} scale={scale} radius={40}/>
+                    </View>
+                
+            
+                    <View style={styles.numericalText}>
+                        <Text style={{ opacity: opacity[0], marginBottom: 5 }}>{scale.scaleMinText}</Text>
+                        <Text style={{ opacity: opacity[1], marginBottom: 5 }}>{scale.scaleMidText}</Text>
+                        <Text style={{ opacity: opacity[2] }}>{scale.scaleMaxText}</Text>
+                    </View>
                 </View>
-              
-        
-              <View style={styles.numericalText}>
-                <Text style={{ opacity: opacity[0], marginBottom: 5 }}>{scale.scaleMinText}</Text>
-                <Text style={{ opacity: opacity[1], marginBottom: 5 }}>{scale.scaleMidText}</Text>
-                <Text style={{ opacity: opacity[2] }}>{scale.scaleMaxText}</Text>
-              </View>
             </View>
+            
             );
     }
 
@@ -310,6 +313,16 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         marginTop: 10
     },
+    numericalStyle: {
+        flexDirection: 'row', // Arrange the circular progress and text side by side.
+        alignItems: 'center', // Center the children vertically.
+    },
+    numericalStyleContainer: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center', // Add this to center horizontally.
+    },
     scale_category_button : {
         flexDirection: 'row',
         justifyContent: 'space-between',
@@ -320,12 +333,10 @@ const styles = StyleSheet.create({
         borderColor: '#ddd',
     },
     circularProgressStyle: {
-        marginLeft: 20,
         marginBottom: 10,
-        width: "30%"
+        marginRight: 30
     },
     numericalText: {
-        width: "70%",
         // center text vertically
         flexDirection: 'column',
         justifyContent: 'center',
