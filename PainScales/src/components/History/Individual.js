@@ -334,7 +334,7 @@ const styles = StyleSheet.create({
     },
     circularProgressStyle: {
         marginBottom: 10,
-        marginRight: 30
+        marginRight: 20
     },
     numericalText: {
         // center text vertically

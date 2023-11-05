@@ -69,7 +69,7 @@ export default function AppWrapper() {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
     },
     header: {
         backgroundColor: PrimaryColor,

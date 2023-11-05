@@ -61,7 +61,7 @@ export default function Home() {
       indicatorContainerStyle={{backgroundColor: PrimaryColor}}
       renderLabel={({ route, focused, color }) => (
         <Text style={{ color: focused ? PrimaryColor : 'white', backgroundColor: focused ? "white" : PrimaryColor, paddingLeft: 9, 
-                        paddingRight: 9, paddingTop: 5, paddingBottom: 5, borderRadius: 15, overflow: 'hidden', }}>
+                        paddingRight: 9, paddingTop: 5, paddingBottom: 5, borderRadius: 15, overflow: 'hidden', marginLeft: -5, marginRight:-5}}>
           {route.title}
         </Text>
       )}

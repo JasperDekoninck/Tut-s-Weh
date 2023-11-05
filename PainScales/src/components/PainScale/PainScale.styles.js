@@ -5,6 +5,11 @@ import { Dimensions } from 'react-native'
 const vh = Dimensions.get('window').height;
 const vw = Dimensions.get('window').width;
 
+const imageWidth = Math.min(vh * 0.1, vw * 0.2);
+
+const widthContainer = vw * 0.4;
+const heightContainer = 0.18 * vh;
+
 export default StyleSheet.create({
     container: {
         flex: 1,
@@ -69,8 +74,8 @@ export default StyleSheet.create({
     },
     
     option: {
-        width: 150,
-        height: 150,
+        width: widthContainer,
+        height: heightContainer,
         justifyContent: 'center',
         alignItems: 'center',
         margin: 5,
@@ -79,8 +84,8 @@ export default StyleSheet.create({
     },
 
     selectedOption: {
-        width: 150,
-        height: 150,
+        width: widthContainer,
+        height: heightContainer,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: SecondaryColor,
@@ -94,8 +99,8 @@ export default StyleSheet.create({
     },
 
     optionImage: {
-        width: 100,
-        height: 100,
+        width: imageWidth,
+        height: imageWidth,
         resizeMode: 'contain',
         marginBottom: 10,
     },
