@@ -170,7 +170,7 @@ const HistoryCombined = () => {
     return <View style={{flex : 1}}>
         <View style={styles.form}>
             <TouchableOpacity onPress={() => setStartDatePickerVisibility(true)} style={styles.dateSelector}>
-                <Text style={styles.dataSelectorText}>From: {formatDate(startDate)}</Text>
+                <Text style={styles.dataSelectorText}>Von: {formatDate(startDate)}</Text>
             </TouchableOpacity>
             {isStartDatePickerVisible && (
                 <DateTimePicker
@@ -183,7 +183,7 @@ const HistoryCombined = () => {
             )}
 
             <TouchableOpacity onPress={() => setEndDatePickerVisibility(true)} style={styles.dateSelector}>
-                <Text style={styles.dataSelectorText}>To: {formatDate(endDate)}</Text>
+                <Text style={styles.dataSelectorText}>Bis: {formatDate(endDate)}</Text>
             </TouchableOpacity>
             {isEndDatePickerVisible && (
                 <DateTimePicker

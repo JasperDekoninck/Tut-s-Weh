@@ -230,7 +230,7 @@ const HistoryIndividual = () => {
         return <View style={{flex : 1}}>
                 <View style={styles.form}>
                     <TouchableOpacity onPress={() => setDatePickerVisibility(true)} style={styles.dateSelector}>
-                        <Text style={styles.dataSelectorText}> Set Date</Text>
+                        <Text style={styles.dataSelectorText}>Datum</Text>
                     </TouchableOpacity>
                     {isDatePickerVisible && (
                         <DateTimePicker
@@ -243,11 +243,11 @@ const HistoryIndividual = () => {
                     )}
 
                     <TouchableOpacity onPress={() => setDisplayScaleList(true)} style={styles.dateSelector}>
-                        <Text style={styles.dataSelectorText}> Set Scale</Text>
+                        <Text style={styles.dataSelectorText}>Skala</Text>
                     </TouchableOpacity>
 
                     <TouchableOpacity onPress={() => setDisplayCategoryList(true)} style={styles.dateSelector}>
-                        <Text style={styles.dataSelectorText}> Set Category</Text>
+                        <Text style={styles.dataSelectorText}>Kategorie</Text>
                     </TouchableOpacity>
 
                 </View>
@@ -353,7 +353,9 @@ const styles = StyleSheet.create({
         margin: 10
     },
     dataSelectorText: {
-        color: "white"
+        color: "white",
+        width: 80,
+        textAlign: 'center'
     },
     dateText: {
         color: 'grey',

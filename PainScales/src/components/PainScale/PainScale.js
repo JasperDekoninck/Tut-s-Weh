@@ -34,7 +34,7 @@ const PainScale = ({ scale }) => {
             };
             addToHistory(painRecord);
             showMessage({ // Updates here to display on top
-                message: "Your answer has been submitted!",
+                message: "Ihre Antwort wurde gesendet!",
                 type: "success",
                 autoHide: true,
                 duration: 3000 // 3 seconds
@@ -45,7 +45,7 @@ const PainScale = ({ scale }) => {
             }
         } else {
             showMessage({ // Updates here to display on top
-                message: "Please select your answer before submitting",
+                message: "Bitte wählen Sie Ihre Antwort vor dem Absenden aus.",
                 type: "warning",
                 autoHide: true,
                 duration: 3000 // 3 seconds
@@ -126,7 +126,7 @@ const PainScale = ({ scale }) => {
             <Text style={styles.question}>{scale.question}</Text>
             { scale.type === 'numerical' ? renderNumericalType() : renderCategoricalType() }
             <TouchableOpacity style={styles.button} onPress={handleAnswerSubmit} >
-                <Text style={styles.text_button}>Submit</Text>
+                <Text style={styles.text_button}>Senden</Text>
             </TouchableOpacity>
 
         </View>  

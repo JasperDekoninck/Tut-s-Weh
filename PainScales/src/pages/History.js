@@ -15,8 +15,8 @@ export default function History() {
     const layout = useWindowDimensions();
     const [index, setIndex] = React.useState(0);
     const [routes] = React.useState([
-      { key: 'individual', title: 'Individual'},
-      { key: 'averaged', title: 'Combined' },
+      { key: 'individual', title: 'Individuell'},
+      { key: 'averaged', title: 'Kombiniert' },
     ]);
   
     const fetchLastHistory = async () => {

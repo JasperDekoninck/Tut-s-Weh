@@ -70,7 +70,7 @@ const createCategoryPage = (category) => {
                         style={styles.other_scales_button} 
                         onPress={handleSelectOtherScale} 
                     >
-                    <Text style={styles.text_scales_button}>Select Other Scale</Text>
+                    <Text style={styles.text_scales_button}>Andere Skala</Text>
                     </TouchableOpacity>
                 </View>
                 )}

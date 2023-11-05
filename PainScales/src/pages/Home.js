@@ -23,10 +23,10 @@ export default function Home() {
   const layout = useWindowDimensions();
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
-    { key: 'intensity', title: 'Intensity', },
-    { key: 'feeling', title: 'Feeling' },
-    { key: 'affect', title: 'Affect' },
-    { key: 'type', title: 'Type' }
+    { key: 'intensity', title: 'Intensität', },
+    { key: 'feeling', title: 'Gefühle' },
+    { key: 'affect', title: 'Einfluss' },
+    { key: 'type', title: 'Art' }
   ]);
 
   const fetchLastCategory = async () => {
@@ -60,8 +60,8 @@ export default function Home() {
       style={{ backgroundColor: PrimaryColor, height: 50 }} // TabBar background
       indicatorContainerStyle={{backgroundColor: PrimaryColor}}
       renderLabel={({ route, focused, color }) => (
-        <Text style={{ color: focused ? PrimaryColor : 'white', backgroundColor: focused ? "white" : PrimaryColor, paddingLeft: 12, 
-                        paddingRight: 12, paddingTop: 5, paddingBottom: 5, borderRadius: 15, overflow: 'hidden', }}>
+        <Text style={{ color: focused ? PrimaryColor : 'white', backgroundColor: focused ? "white" : PrimaryColor, paddingLeft: 9, 
+                        paddingRight: 9, paddingTop: 5, paddingBottom: 5, borderRadius: 15, overflow: 'hidden', }}>
           {route.title}
         </Text>
       )}

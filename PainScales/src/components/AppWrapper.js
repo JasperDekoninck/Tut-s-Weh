@@ -59,7 +59,7 @@ export default function AppWrapper() {
                 >
                     <Tab.Screen name="Home" component={Home}/>
                     <Tab.Screen name="Historie" component={History} />
-                    <Tab.Screen name="Infos" component={Info} />
+                    {/* <Tab.Screen name="Infos" component={Info} /> */}
                     {/* <Tab.Screen name="Settings" component={Settings} /> */}
                 </Tab.Navigator>
                 </NavigationContainer>

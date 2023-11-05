@@ -109,4 +109,19 @@ export const PainScaleData = [
             { id: 3, text: 'Mir geht es super, ich habe keine Schmerzen.', image: require('../../assets/Car/3.png') },
         ]
     },
+    {
+        id: '9',
+        type: 'categorical',
+        name: 'Wie stark sind deine Schmerzen? (Engel/Teufel)',
+        category: CATEGORIES.INTENSITY,
+        fontSize: 0.75,
+        height: 1.35,
+        question: 'Wie stark sind deine Schmerzen?',
+        options: [
+            { id: 1, text: 'Ich habe gar keine Schmerzen.', image: require('../../assets/Angel/1.png') },
+            { id: 2, text: 'Ich habe etwas Schmerzen.', image: require('../../assets/Angel/2.png') },
+            { id: 3, text: 'Ich habe ziemlich starke Schmerzen.', image: require('../../assets/Angel/3.png') },
+            { id: 4, text: 'Meine Schmerzen sind unaushaltbar.', image: require('../../assets/Angel/4.png') },
+        ]
+    },
 ];

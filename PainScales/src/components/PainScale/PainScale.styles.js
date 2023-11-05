@@ -17,7 +17,7 @@ export default StyleSheet.create({
     question: {
         fontSize: 24,
         fontWeight: 'bold',
-        marginBottom: 20,
+        marginBottom: 5,
         textAlign: 'center',
     },
     button: {
