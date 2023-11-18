@@ -1,8 +1,9 @@
 {
+  "version": "1.0.3",
   "expo": {
     "name": "PainScales",
     "slug": "PainScales",
-    "version": "1.0.0",
+    "version": "1.0.3",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -21,10 +22,23 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.jasperdekoninck.PainScales",
+      "versionCode": 4
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "63bc4b76-cdd8-4d53-a6b3-0b9069429b84"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/63bc4b76-cdd8-4d53-a6b3-0b9069429b84"
     }
   }
 }
