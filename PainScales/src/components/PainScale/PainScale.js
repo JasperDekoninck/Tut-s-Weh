@@ -34,7 +34,7 @@ const PainScale = ({ scale }) => {
             };
             addToHistory(painRecord);
             showMessage({ // Updates here to display on top
-                message: "Ihre Antwort wurde gesendet!",
+                message: "Ihre Antwort wurde gespeichert!",
                 type: "success",
                 autoHide: true,
                 duration: 3000 // 3 seconds

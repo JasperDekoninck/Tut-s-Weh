@@ -75,9 +75,9 @@ export const PainScaleData = [
         height: 1.35,
         question: 'Wie fühlen sich Ihre Schmerzen an?',
         options: [
-            { id: 1, text: 'Meine Schnerzen fühlen sich brennend an.', image: require('../../assets/Type/1.png') },
+            { id: 1, text: 'Meine Schnerzen fühlen sich stechend an.', image: require('../../assets/Type/1.png') },
             { id: 2, text: 'Meine Schmerzen fühlen sich dumpf und hämmernd an.', image: require('../../assets/Type/2.png') },
-            { id: 3, text: 'Meine Schmerzen sind stechend.', image: require('../../assets/Type/3.png') },
+            { id: 3, text: 'Meine Schmerzen sind brennend.', image: require('../../assets/Type/3.png') },
             { id: 4, text: 'Ich kann meine Schmerzen nicht beschreiben, aber sie verfolgen mich den ganzen Tag.', image: require('../../assets/Type/4.png') },
         ]
     },

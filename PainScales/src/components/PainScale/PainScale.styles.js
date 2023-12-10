@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { SecondaryColor } from '../../utils/Constants';
+import { SecondaryColor, PrimaryColor, TertiaryColor } from '../../utils/Constants';
 import { Dimensions } from 'react-native'
 
 const vh = Dimensions.get('window').height;
@@ -36,8 +36,8 @@ export default StyleSheet.create({
         paddingBottom: 10,
         borderRadius: 20,
         overflow: 'hidden',
-        paddingLeft: 20,
-        paddingRight: 20,
+        paddingLeft: 35,
+        paddingRight: 35,
         color: "white"
     },
     scaleContainer: {
@@ -88,7 +88,7 @@ export default StyleSheet.create({
         height: heightContainer,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: SecondaryColor,
+        backgroundColor: TertiaryColor,
         margin: 5,
         padding: 5,
         borderRadius: 5,

@@ -46,7 +46,7 @@ export default function AppWrapper() {
 
                         return <MaterialIcons name={iconName} size={size} color={color} />;
                     },
-                    tabBarActiveTintColor: PrimaryColor,
+                    tabBarActiveTintColor: SecondaryColor,
                     tabBarInactiveTintColor: 'gray',
                     tabBarStyle: [
                         {
@@ -73,10 +73,10 @@ const styles = StyleSheet.create({
     },
     header: {
         backgroundColor: PrimaryColor,
-        height: 80,
+        height: 62,
         justifyContent: 'center',
         alignItems: 'center',
-        paddingTop: 30,
+        paddingTop: 10,
     },
     title: {
         color: 'white',

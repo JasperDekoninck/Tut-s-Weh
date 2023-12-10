@@ -293,7 +293,7 @@ const HistoryIndividual = () => {
                                         {displayAnswer(item.answer, scale)}
                                     </View>
                                     <TouchableOpacity style={styles.iconContainer} onPress={() => handleDelete(index)}>
-                                        <Icon name="close" size={20} color="red" style={styles.bin}/>
+                                        <Icon name="close" size={25} color="red" style={styles.bin}/>
                                     </TouchableOpacity>
                                     
                                 </View>
@@ -369,7 +369,7 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     dateText: {
-        color: 'grey',
+        color: '#737373',
         textAlign: 'center',
         fontSize: 16,
         paddingLeft: 10,
@@ -402,7 +402,7 @@ const styles = StyleSheet.create({
         position: 'absolute',
         right: 0,
         top: 0,
-        height: 30
+        height: 40
     },
     title: {
         fontWeight: "bold",

@@ -1,4 +1,5 @@
-const PrimaryColor = '#faca7f';
+const PrimaryColor = '#fedfae';
 const SecondaryColor = '#f8775a';
+const TertiaryColor = '#faca7f';
 
-export { PrimaryColor, SecondaryColor };
+export { PrimaryColor, SecondaryColor, TertiaryColor };
