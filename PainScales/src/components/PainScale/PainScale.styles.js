@@ -5,10 +5,10 @@ import { Dimensions } from 'react-native'
 const vh = Dimensions.get('window').height;
 const vw = Dimensions.get('window').width;
 
-const imageWidth = Math.min(vh * 0.1, vw * 0.2);
+const imageWidth = Math.min(vh * 0.3, vw * 0.4);
 
-const widthContainer = vw * 0.4;
-const heightContainer = 0.18 * vh;
+const widthContainer = vw * 0.47;
+const heightContainer = 0.2 * vh;
 
 export default StyleSheet.create({
     container: {
@@ -38,6 +38,7 @@ export default StyleSheet.create({
         overflow: 'hidden',
         paddingLeft: 35,
         paddingRight: 35,
+        fontSize: 20,
         color: "white"
     },
     scaleContainer: {
@@ -78,9 +79,9 @@ export default StyleSheet.create({
         height: heightContainer,
         justifyContent: 'center',
         alignItems: 'center',
-        margin: 5,
         padding: 5,
-        borderRadius: 5,
+        marginBottom: 5,
+        borderRadius: 10,
     },
 
     selectedOption: {
@@ -88,10 +89,12 @@ export default StyleSheet.create({
         height: heightContainer,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: TertiaryColor,
-        margin: 5,
         padding: 5,
-        borderRadius: 5,
+        paddingBottom: 20,
+        paddingTop: 20,
+        marginBottom: 5,
+        backgroundColor: TertiaryColor,
+        borderRadius: 10,
     },
 
     optionContent: {
@@ -99,10 +102,9 @@ export default StyleSheet.create({
     },
 
     optionImage: {
-        width: imageWidth,
-        height: imageWidth,
+        width: imageWidth + 15,
+        height: imageWidth - 10,
         resizeMode: 'contain',
-        marginBottom: 10,
     },
 
     optionText: {

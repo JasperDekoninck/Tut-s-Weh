@@ -23,9 +23,9 @@ export default function Home() {
   const layout = useWindowDimensions();
   const [index, setIndex] = React.useState(0);
   const [routes] = React.useState([
-    { key: 'intensity', title: 'Intensität', },
-    { key: 'feeling', title: 'Gefühle' },
+    { key: 'intensity', title: 'Stärke', },
     { key: 'type', title: 'Art' },
+    { key: 'feeling', title: 'Gefühle' },
     { key: 'affect', title: 'Einfluss' },
     
   ]);
@@ -61,8 +61,8 @@ export default function Home() {
       style={{ backgroundColor: PrimaryColor, height: 50 }} // TabBar background
       indicatorContainerStyle={{backgroundColor: PrimaryColor}}
       renderLabel={({ route, focused, color }) => (
-        <Text style={{ color: focused ? 'white' : SecondaryColor, backgroundColor: focused ? SecondaryColor : PrimaryColor, paddingLeft: 9, 
-                        paddingRight: 9, paddingTop: 5, paddingBottom: 5, borderRadius: 15, overflow: 'hidden', marginLeft: -5, marginRight:-5, fontWeight: 500}}>
+        <Text style={{ color: focused ? 'white' : SecondaryColor, backgroundColor: focused ? SecondaryColor : PrimaryColor, paddingLeft: 10, fontSize: 17,
+                        paddingRight: 10, paddingTop: 5, paddingBottom: 5, borderRadius: 20, overflow: 'hidden', marginLeft: -8, marginRight:-8, fontWeight: 500}}>
           {route.title}
         </Text>
       )}

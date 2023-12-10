@@ -189,13 +189,13 @@ const HistoryIndividual = () => {
     }, [history, selectedScale, selectedCategory]);
 
     let scaleItems = scales.map(scale => ({ label: scale.name, value: scale.id }));
-    scaleItems.unshift({ label: "All", value: null });
+    scaleItems.unshift({ label: "Alle", value: null });
     // make sure the all scales comes first
 
     // CATEGORIES is a dictionary, so we need to convert it to an array
 
     let categoryItems = Object.keys(CATEGORIES).map(key => ({ label: CATEGORIES[key], value: CATEGORIES[key] }));
-    categoryItems.unshift({ label: "All", value: null });
+    categoryItems.unshift({ label: "Alle", value: null });
 
     if (displayScaleList) {
         return <ScrollView>
@@ -204,11 +204,13 @@ const HistoryIndividual = () => {
                         style={styles.scale_category_button} 
                         key={scale.value} 
                         onPress={() => handleSetSelectedScale(scale.value)}  
-                    >
-                        <Text>{scale.label}</Text>
-                        {selectedScale === scale.value && (
-                        <FontAwesome name="check" size={20} color={SecondaryColor} />
-                        )}
+                    >   
+                        <View style={styles.scale_view}>
+                            <Text style={styles.scale_label}>{scale.label}</Text>
+                            {selectedScale === scale.value && (
+                            <FontAwesome name="check" size={30} color={SecondaryColor} />
+                            )}
+                        </View>
                     </TouchableOpacity>
                     ))
             }
@@ -220,11 +222,13 @@ const HistoryIndividual = () => {
                         style={styles.scale_category_button} 
                         key={scale.value} 
                         onPress={() => handleSetSelectedCategory(scale.value)}  
-                    >
-                        <Text>{scale.label}</Text>
-                        {selectedCategory === scale.value && (
-                        <FontAwesome name="check" size={20} color={SecondaryColor} />
-                        )}
+                    >   
+                        <View style={styles.scale_view}>
+                            <Text style={styles.scale_label}>{scale.label}</Text>
+                            {selectedCategory === scale.value && (
+                            <FontAwesome name="check" size={30} color={SecondaryColor} />
+                            )}
+                        </View>
                     </TouchableOpacity>
                     ))
             }
@@ -311,7 +315,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         marginBottom: 10,
-        marginTop: 10
+        marginTop: 10,
     },
     numericalStyle: {
         flexDirection: 'row', // Arrange the circular progress and text side by side.
@@ -365,20 +369,21 @@ const styles = StyleSheet.create({
     },
     dataSelectorText: {
         color: "white",
-        width: 80,
+        width: 90,
+        fontSize: 18,
         textAlign: 'center'
     },
     dateText: {
         color: '#737373',
         textAlign: 'center',
-        fontSize: 16,
+        fontSize: 20,
         paddingLeft: 10,
         paddingRight: 10,
     },
     smallDate: {
         color: SecondaryColor,
         textAlign: 'center',
-        fontSize: 11,
+        fontSize: 14,
         marginBottom: -3,
         marginTop: -3
     },
@@ -409,7 +414,7 @@ const styles = StyleSheet.create({
         color: SecondaryColor,
         paddingLeft: 40,
         paddingRight: 40,
-        fontSize: 18,
+        fontSize: 20,
         textAlign: 'center',
     },
     header: {
@@ -426,16 +431,28 @@ const styles = StyleSheet.create({
     },
 
     optionImage: {
-        height: 60,
+        height: 100,
         resizeMode: 'contain',
     },
 
     optionText: {
-        fontSize: 15,
+        fontSize: 18,
         textAlign: 'center',
         marginBottom: 10,
         paddingLeft: 10,
         paddingRight: 10
+    },
+    scale_label: {
+        fontSize: 18,
+        width: '90%',
+    },
+    scale_view: {
+        height: 45,
+        paddingRight: 8,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        width: "100%",
     },
 });
 

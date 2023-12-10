@@ -53,8 +53,8 @@ export default function AppWrapper() {
                             display: 'flex',
                         }
                     ],
-                    tabBarLabelStyle: {marginBottom: 5},
-                    tabBarIconStyle: { marginTop: 5 },
+                    tabBarLabelStyle: {marginBottom: 5, fontSize: 14},
+                    tabBarIconStyle: { marginTop: 5, marginBottom: -4, },
                 })}
                 >
                     <Tab.Screen name="Home" component={Home}/>

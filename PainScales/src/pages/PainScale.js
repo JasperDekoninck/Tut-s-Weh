@@ -49,11 +49,13 @@ const createCategoryPage = (category) => {
                                     style={styles.button} 
                                     key={scale.id} 
                                     onPress={() => handleScaleSelect(scale.id)}  
-                                >
-                                    <Text>{scale.name}</Text>
+                                >   
+                                    <View style={styles.scale_view}>
+                                    <Text style={styles.scale_name}>{scale.name}</Text>
                                     {selectedScale && selectedScale.id === scale.id && (
-                                    <FontAwesome name="check" size={20} color={SecondaryColor} />
+                                    <FontAwesome name="check" size={30} color={SecondaryColor} />
                                     )}
+                                    </View>
                                 </TouchableOpacity>
                                 ))
                         }
@@ -112,8 +114,21 @@ text_scales_button: {
     overflow: 'hidden',
     paddingLeft: 20,
     paddingRight: 20,
+    fontSize: 20,
     color: SecondaryColor
-}
+},
+scale_name: {
+    fontSize: 18,
+    marginRight: 15
+},
+scale_view: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    width: "100%",
+    height: 45,
+    paddingRight: 8
+},
 });
 
 export const IntensityPage = createCategoryPage('INTENSITY');

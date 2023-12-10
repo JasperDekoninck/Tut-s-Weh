@@ -49,8 +49,8 @@ export default function History() {
         style={{ backgroundColor: PrimaryColor }} // TabBar background
         indicatorContainerStyle={{backgroundColor: PrimaryColor}}
         renderLabel={({ route, focused, color }) => (
-          <Text style={{ color: focused ? 'white' : SecondaryColor, backgroundColor: focused ? SecondaryColor : PrimaryColor, paddingLeft: 9, 
-                        paddingRight: 9, paddingTop: 5, paddingBottom: 5, borderRadius: 15, overflow: 'hidden', marginLeft: -5, marginRight:-5, fontWeight: 500}}>
+          <Text style={{ color: focused ? 'white' : SecondaryColor, backgroundColor: focused ? SecondaryColor : PrimaryColor, paddingLeft: 9, fontSize: 17,
+                        paddingRight: 9, paddingTop: 5, paddingBottom: 5, borderRadius: 20, overflow: 'hidden', marginLeft: -5, marginRight:-5, fontWeight: 500}}>
           {route.title}
         </Text>
         )}
