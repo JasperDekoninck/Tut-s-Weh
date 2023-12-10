@@ -34,7 +34,7 @@ const PainScale = ({ scale }) => {
             };
             addToHistory(painRecord);
             showMessage({ // Updates here to display on top
-                message: "Ihre Antwort wurde gespeichert!",
+                message: "Antwort notiert!",
                 type: "success",
                 autoHide: true,
                 duration: 3000 // 3 seconds
@@ -45,7 +45,7 @@ const PainScale = ({ scale }) => {
             }
         } else {
             showMessage({ // Updates here to display on top
-                message: "Bitte wählen Sie Ihre Antwort vor dem Absenden aus.",
+                message: "Nicht vergessen: Antwort aussuchen, dann abschicken!",
                 type: "warning",
                 autoHide: true,
                 duration: 3000 // 3 seconds

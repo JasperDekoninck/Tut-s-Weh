@@ -79,7 +79,7 @@ export default function Home() {
         initialLayout={{ width: layout.width }}
         animationEnabled={true}
       />
-      <FlashMessage position="top" style={{marginTop: 50}}/>
+      <FlashMessage position="top" style={{marginTop: 50, paddingTop: 10, paddingBottom: 10}} titleStyle={{fontSize: 19}}/>
     </>
   );
 }

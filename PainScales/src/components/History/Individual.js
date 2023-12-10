@@ -130,12 +130,12 @@ const HistoryIndividual = () => {
     const handleDelete = (id) => {
         const entryToDelete = filteredHistory[id];
         Alert.alert(
-            'Delete Entry',
-            'Are you sure you want to delete this entry?',
+            'Eintrag löschen',
+            'Bist du sicher, dass du diesen Eintrag löschen willst?',
             [
                 {
-                    text: 'Cancel',
-                    style: 'cancel',
+                    text: 'Abbrechen',
+                    style: 'abbrechen',
                 },
                 { text: 'OK', onPress: () => {
                     
@@ -297,7 +297,7 @@ const HistoryIndividual = () => {
                                         {displayAnswer(item.answer, scale)}
                                     </View>
                                     <TouchableOpacity style={styles.iconContainer} onPress={() => handleDelete(index)}>
-                                        <Icon name="close" size={25} color="red" style={styles.bin}/>
+                                        <Icon name="close" size={35} color="red" style={styles.bin}/>
                                     </TouchableOpacity>
                                     
                                 </View>

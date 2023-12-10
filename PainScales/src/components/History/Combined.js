@@ -262,7 +262,6 @@ const styles = StyleSheet.create({
         justifyContent: 'space-evenly',
         alignItems: 'center',
         marginBottom: 10,
-        marginTop: 10,
     },
     numericalStats: {
         flexDirection: 'row', 
@@ -287,7 +286,7 @@ const styles = StyleSheet.create({
     subtitle: {
         color: SecondaryColor,
         textAlign: 'center',
-        fontSize: 12,
+        fontSize: 16,
     },
     flatListStyle: {
         zIndex: -1
@@ -307,7 +306,8 @@ const styles = StyleSheet.create({
     },
     dataSelectorText: {
         color: "white",
-        width: 120,
+        width: 150,
+        fontSize: 17,
         textAlign: 'center',
     },
     card: {
@@ -324,21 +324,20 @@ const styles = StyleSheet.create({
     title: {
         fontWeight: "bold",
         color: SecondaryColor,
-        paddingLeft: 40,
-        paddingRight: 40,
-        fontSize: 18,
+        paddingLeft: 10,
+        paddingRight: 10,
+        fontSize: 20,
         textAlign: 'center',
     },
     header: {
         paddingTop: 10,
-        paddingBottom: 10,
+        paddingBottom: 5,
     },
     text: {
         fontSize: 16,
         marginBottom: 5,
         padding: 10
     },
-
     optionImage: {
         height: 120,
         width: 120,
@@ -346,9 +345,9 @@ const styles = StyleSheet.create({
     },
 
     optionText: {
-        fontSize: 12,
+        fontSize: 16,
         width: 180,
-        height: 60,
+        height: 65,
         textAlign: 'center',
         paddingLeft: 5,
         paddingRight: 5

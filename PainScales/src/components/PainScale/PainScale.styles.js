@@ -5,7 +5,7 @@ import { Dimensions } from 'react-native'
 const vh = Dimensions.get('window').height;
 const vw = Dimensions.get('window').width;
 
-const imageWidth = Math.min(vh * 0.3, vw * 0.4);
+const imageWidth = Math.min(vh * 0.24, vw * 0.4);
 
 const widthContainer = vw * 0.47;
 const heightContainer = 0.2 * vh;
@@ -13,7 +13,8 @@ const heightContainer = 0.2 * vh;
 export default StyleSheet.create({
     container: {
         flex: 1,
-        padding: 20,
+        paddingTop: 20,
+        paddingBottom: 10,
         paddingLeft: 10,
         paddingRight: 10,
         maxHeight: "90%",
@@ -71,7 +72,7 @@ export default StyleSheet.create({
         flexWrap: 'wrap',
         justifyContent: 'space-evenly',
         alignItems: 'center',
-        height: "80%",
+        paddingBottom: 15,
     },
     
     option: {
