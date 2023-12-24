@@ -13,12 +13,12 @@ const heightContainer = 0.2 * vh;
 export default StyleSheet.create({
     container: {
         flex: 1,
-        paddingTop: 20,
+        paddingTop: 10,
         paddingBottom: 10,
         paddingLeft: 10,
         paddingRight: 10,
-        maxHeight: "90%",
-        minHeight: "90%",
+        maxHeight: "91%",
+        minHeight: "91%",
     },
     question: {
         fontSize: 24,
