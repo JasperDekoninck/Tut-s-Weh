@@ -1,9 +1,10 @@
 {
-  "version": "1.1.1",
+  "version": "1.1.3",
   "expo": {
-    "name": "PainScales",
-    "slug": "PainScales",
-    "version": "1.1.1",
+    "name": "Tut's Weh",
+    "slug": "tutsweh",
+    "privacy": "public",
+    "version": "1.1.3",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -22,7 +23,9 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.application.tutsweh",
+      "buildNumber": "1.1.3"
     },
     "android": {
       "adaptiveIcon": {
@@ -30,21 +33,21 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.jasperdekoninck.PainScales",
-      "versionCode": 7
+      "versionCode": 10
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    },
-    "extra": {
-      "eas": {
-        "projectId": "63bc4b76-cdd8-4d53-a6b3-0b9069429b84"
-      }
     },
     "runtimeVersion": {
       "policy": "appVersion"
     },
     "updates": {
       "url": "https://u.expo.dev/63bc4b76-cdd8-4d53-a6b3-0b9069429b84"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "2e0a42b7-4259-476f-87a0-69892f4aed4e"
+      }
     }
   }
 }

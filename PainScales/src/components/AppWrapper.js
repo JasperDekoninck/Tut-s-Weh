@@ -70,13 +70,14 @@ export default function AppWrapper() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        maxHeight: '100%',
     },
     header: {
         backgroundColor: PrimaryColor,
-        height: 62,
+        height: 47,
         justifyContent: 'center',
         alignItems: 'center',
-        paddingTop: 10,
+        paddingTop: 5,
     },
     title: {
         color: 'white',
@@ -84,8 +85,8 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     image: {
-        width: 85,
-        height: 85,
+        width: 70,
+        height: 70,
         resizeMode: 'contain',
     },
 });

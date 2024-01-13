@@ -5,16 +5,15 @@ import { Dimensions } from 'react-native'
 const vh = Dimensions.get('window').height;
 const vw = Dimensions.get('window').width;
 
-const imageWidth = Math.min(vh * 0.24, vw * 0.4);
-
+var imageWidth = Math.min(vh * 0.19, vw * 0.40);
 const widthContainer = vw * 0.47;
-const heightContainer = 0.2 * vh;
+const heightContainer = Math.min(vh * 0.20, vw * 0.41);
 
 export default StyleSheet.create({
     container: {
         flex: 1,
         paddingTop: 10,
-        paddingBottom: 10,
+        paddingBottom: 5,
         paddingLeft: 10,
         paddingRight: 10,
         maxHeight: "91%",
@@ -23,7 +22,7 @@ export default StyleSheet.create({
     question: {
         fontSize: 24,
         fontWeight: 'bold',
-        marginBottom: 5,
+        marginBottom: 0,
         textAlign: 'center',
     },
     button: {
@@ -37,8 +36,8 @@ export default StyleSheet.create({
         paddingBottom: 10,
         borderRadius: 20,
         overflow: 'hidden',
-        paddingLeft: 35,
-        paddingRight: 35,
+        paddingLeft: 45,
+        paddingRight: 45,
         fontSize: 20,
         color: "white"
     },

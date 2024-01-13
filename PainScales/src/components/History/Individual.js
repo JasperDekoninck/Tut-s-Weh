@@ -12,8 +12,8 @@ import CustomCircularProgress from './circularProgress';
 
 
 function formatDate(isoString) {
-    const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-    const monthsOfYear = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]; 
+    const daysOfWeek = ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"];
+    const monthsOfYear = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"];
     const date = new Date(isoString);
     const day = daysOfWeek[date.getDay()];
     const dateOfMonth = String(date.getDate()).padStart(2, '0');
