@@ -7,8 +7,6 @@ import { PrimaryColor, SecondaryColor } from '../utils/Constants';
 
 import Home from '../pages/Home';
 import History from '../pages/History';
-import Info from '../pages/Info';
-import Settings from '../pages/Settings';
 
 const Tab = createBottomTabNavigator();
 
