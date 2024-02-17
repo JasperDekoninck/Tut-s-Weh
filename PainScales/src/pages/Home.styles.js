@@ -14,17 +14,6 @@ export default StyleSheet.create({
         marginRight:-8, 
         fontWeight: 500
     },
-    tabBarStyle: {
-        backgroundColor: PrimaryColor, 
-        height: 50
-    },
-    tabBarIndicatorContainerStyle: {
-        backgroundColor: PrimaryColor
-    },
-    tabBarIndicatorStyle: { 
-        backgroundColor: SecondaryColor, 
-        height: 3 
-    },
     FlashMessageStyle: {
         marginTop: 50, 
         paddingTop: 10, 
