@@ -11,6 +11,11 @@ import { setOpacity, calculateThumbColor } from '../../utils/PainScaleUtils';
 import CustomCircularProgress from './circularProgress';
 
 
+/**
+ * Formats an ISO string into a localized date format.
+ * @param {string} isoString - The ISO string representing the date.
+ * @returns {string} The formatted date string.
+ */
 function formatDate(isoString) {
     const daysOfWeek = ["Sonntag", "Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag"];
     const monthsOfYear = ["Januar", "Februar", "März", "April", "Mai", "Juni", "Juli", "August", "September", "Oktober", "November", "Dezember"];
@@ -22,6 +27,11 @@ function formatDate(isoString) {
     return `${day}, ${dateOfMonth} ${month} ${year}`;
 }
 
+/**
+ * Formats the given ISO string into a time format (HH:mm).
+ * @param {string} isoString - The ISO string representing the date and time.
+ * @returns {string} The formatted time string.
+ */
 function formatTime(isoString) {
     const date = new Date(isoString);
     let hour = '' + date.getHours();
@@ -33,6 +43,12 @@ function formatTime(isoString) {
     return [hour, minute].join(':');
 }
 
+/**
+ * Represents a component for displaying individual history entries.
+ *
+ * @component
+ * @returns {JSX.Element} JSX element representing the HistoryIndividual component.
+ */
 const HistoryIndividual = () => {
     const { history, deleteFromHistory } = React.useContext(PainScaleContext);
     
@@ -46,8 +62,12 @@ const HistoryIndividual = () => {
     const [displayScaleList, setDisplayScaleList] = useState(false);
     const [displayCategoryList, setDisplayCategoryList] = useState(false);
 
-    const { addToHistory } = React.useContext(PainScaleContext);
-
+    /**
+     * Displays a numerical answer with a circular progress bar and corresponding text.
+     * @param {number} answer - The numerical answer value.
+     * @param {object} scale - The scale object containing scaleMinText, scaleMidText, and scaleMaxText.
+     * @returns {JSX.Element} - The JSX element representing the numerical answer display.
+     */
     function DisplayNumericalAnswer(answer, scale) {
         let opacity = setOpacity(answer, scale);
         let color = calculateThumbColor(answer, scale);
@@ -72,10 +92,13 @@ const HistoryIndividual = () => {
             );
     }
 
-    // DisplayNumericalAnswer = React.memo(DisplayNumericalAnswer);
-
+    /**
+     * Displays the categorical answer along with the associated image and text.
+     * @param {string} answer - The id of the selected option.
+     * @param {object} scale - The scale object containing the options.
+     * @returns {JSX.Element} - The JSX element displaying the image and text.
+     */
     function DisplayCategoricalAnswer(answer, scale) {
-        // display the image associated with the answer (which is the id of the option) next to the text associated with the option
         let option = scale.options.find(option => option.id === answer);
         return (
             <View style={styles.optionContent}>
@@ -85,6 +108,13 @@ const HistoryIndividual = () => {
         )
     }
 
+    /**
+     * Displays the answer based on the given scale type.
+     * 
+     * @param {any} answer - The answer to be displayed.
+     * @param {object} scale - The scale object containing the scale type.
+     * @returns {any} The displayed answer.
+     */
     function displayAnswer(answer, scale) {
         if (scale.type === "numerical") {
             return DisplayNumericalAnswer(answer, scale);
@@ -104,6 +134,9 @@ const HistoryIndividual = () => {
 
     const flatListRef = useRef();
 
+    /**
+     * Scrolls to the lowest date higher than the currently selected date.
+     */
     const scrollToSelectedDate = () => {
         // get the ref of the item to scroll to, which is the lowest date higher than the currently selected date.
         const existingDates = filteredHistory.map(item => item.date);
@@ -122,11 +155,20 @@ const HistoryIndividual = () => {
         
     };
 
+    /**
+     * Handles the confirmation of a selected date.
+     * @param {Date} date - The selected date.
+     * @returns {void}
+     */
     const handleConfirmDate = (date) => {
         setDatePickerVisibility(false);
         setSelectedDate(date);
     };
 
+    /**
+     * Deletes an entry from the history.
+     * @param {number} id - The ID of the entry to be deleted.
+     */
     const handleDelete = (id) => {
         const entryToDelete = filteredHistory[id];
         Alert.alert(
@@ -153,12 +195,21 @@ const HistoryIndividual = () => {
     const [selectedScale, setSelectedScale] = useState(null);
     const [selectedCategory, setSelectedCategory] = useState(null);
 
+    /**
+     * Sets the selected scale and updates the state accordingly.
+     * @param {number} scale_id - The ID of the selected scale.
+     */
     const handleSetSelectedScale = (scale_id) => {
         setSelectedCategory(null);
         setSelectedScale(scale_id);
         setDisplayScaleList(false);
     };
 
+    /**
+     * Sets the selected category and updates the display accordingly.
+     * @param {string} category - The category to be selected.
+     * @returns {void}
+     */
     const handleSetSelectedCategory = (category) => {
         // set selected scale to all
         setSelectedScale(null);
@@ -168,6 +219,7 @@ const HistoryIndividual = () => {
 
     const [filteredHistory, setFilteredHistory] = useState(onlyCorrectHistory);
 
+    // filter the history based on the selected scale and category
     useEffect(() => {
         let newHistory = [...onlyCorrectHistory];
         if (selectedScale !== null) {
@@ -197,7 +249,7 @@ const HistoryIndividual = () => {
     let categoryItems = Object.keys(CATEGORIES).map(key => ({ label: CATEGORIES[key], value: CATEGORIES[key] }));
     categoryItems.unshift({ label: "Alle", value: null });
 
-    if (displayScaleList) {
+    if (displayScaleList) { // if displayScaleList is true, display the list of scales
         return <ScrollView>
             {scaleItems.map(scale => (
                     <TouchableOpacity 
@@ -215,7 +267,7 @@ const HistoryIndividual = () => {
                     ))
             }
         </ScrollView>
-    } else if (displayCategoryList) {
+    } else if (displayCategoryList) { // if displayCategoryList is true, display the list of categories
         return <ScrollView>
             {categoryItems.map(scale => (
                     <TouchableOpacity 
@@ -233,8 +285,8 @@ const HistoryIndividual = () => {
                     ))
             }
         </ScrollView>
-    } else {
-        return <View style={{flex : 1}}>
+    } else { // show all the answers
+        return <View style={styles.container}>
                 <View style={styles.form}>
                     <TouchableOpacity onPress={() => setDatePickerVisibility(true)} style={styles.dateSelector}>
                         <Text style={styles.dataSelectorText}>Datum</Text>

@@ -2,6 +2,9 @@ import { StyleSheet } from 'react-native';
 import { SecondaryColor } from '../../utils/Constants';
 
 export default StyleSheet.create({
+    container: {
+        flex : 1
+    },
     dateContainer: {
         flex: 1,
         flexDirection: 'row',
