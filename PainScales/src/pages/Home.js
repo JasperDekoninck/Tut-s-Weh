@@ -1,10 +1,11 @@
 import * as React from 'react';
-import { useWindowDimensions, Text } from 'react-native';
-import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
+import { useWindowDimensions } from 'react-native';
+import { TabView, SceneMap } from 'react-native-tab-view';
 import { IntensityPage, FeelingPage, AffectPage, TypePage } from './PainScale';
 import { setLastSelectedCategoryId, getLastSelectedCategoryId } from '../services/selectedPainCategory';
-import { PrimaryColor, SecondaryColor } from '../utils/Constants';
 import FlashMessage from 'react-native-flash-message';
+import styles from './Home.styles';
+import CustomTabBar from '../components/CustomTabBar';
 
 const IntensityRoute = () => <IntensityPage />;
 const FeelingRoute = () => <FeelingPage />;
@@ -29,6 +30,10 @@ export default function Home() {
     
   ]);
 
+  /**
+   * Fetches the last selected category and updates the index accordingly.
+   * @returns {Promise<void>} A promise that resolves when the index is updated.
+   */
   const fetchLastCategory = async () => {
     const lastCategory = await getLastSelectedCategoryId();
     if(lastCategory != null)
@@ -47,24 +52,25 @@ export default function Home() {
         fetchLastCategory();               
     }, []); 
 
+  /**
+   * Handles the change of index.
+   * @param {number} index - The new index value.
+   */
   const handleIndexChange = (index) => {
     setIndex(index);
     setLastSelectedCategoryId(index.toString());
     }
 
+  /**
+   * Renders the custom TabBar component.
+   * 
+   * @param {object} props - The props passed to the TabBar component.
+   * @returns {JSX.Element} The rendered TabBar component.
+   */
   const renderTabBar = props => (
-    <TabBar
+    <CustomTabBar
       {...props}
-      
-      indicatorStyle={{ backgroundColor: SecondaryColor, height: 3 }} // active tab underline color
-      style={{ backgroundColor: PrimaryColor, height: 50 }} // TabBar background
-      indicatorContainerStyle={{backgroundColor: PrimaryColor}}
-      renderLabel={({ route, focused, color }) => (
-        <Text style={{ color: focused ? 'white' : SecondaryColor, backgroundColor: focused ? SecondaryColor : PrimaryColor, paddingLeft: 10, fontSize: 17,
-                        paddingRight: 10, paddingTop: 5, paddingBottom: 5, borderRadius: 20, overflow: 'hidden', marginLeft: -8, marginRight:-8, fontWeight: 500}}>
-          {route.title}
-        </Text>
-      )}
+      renderStyle={styles.tabBarRenderStyle}
     />
   );
 
@@ -78,7 +84,7 @@ export default function Home() {
         initialLayout={{ width: layout.width }}
         animationEnabled={true}
       />
-      <FlashMessage position="top" style={{marginTop: 50, paddingTop: 10, paddingBottom: 10}} titleStyle={{fontSize: 19}}/>
+      <FlashMessage position="top" style={styles.FlashMessageStyle} titleStyle={styles.title}/>
     </>
   );
 }

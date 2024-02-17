@@ -1,24 +1,34 @@
 import React from 'react';
 import HistoryIndividual from '../components/History/Individual';
 import HistoryCombined from '../components/History/Combined';
-import { useWindowDimensions, Text } from 'react-native';
-import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
+import { useWindowDimensions } from 'react-native';
+import { TabView, SceneMap } from 'react-native-tab-view';
 import { getLastSelectedHistory, setLastSelectedHistory } from '../services/selectedHistory';
-import { PrimaryColor, SecondaryColor } from '../utils/Constants';
+import styles from './History.styles';
+import CustomTabBar from '../components/CustomTabBar';
 
 const renderScene = SceneMap({
     individual: HistoryIndividual, 
     averaged: HistoryCombined,
 });
 
+/**
+ * Renders the History page.
+ *
+ * @returns {JSX.Element} The rendered History page.
+ */
 export default function History() {
     const layout = useWindowDimensions();
-    const [index, setIndex] = React.useState(0);
+    const [index, setIndex] = React.useState(0); // Index of the history
     const [routes] = React.useState([
       { key: 'individual', title: 'Individuell'},
       { key: 'averaged', title: 'Kombiniert' },
     ]);
   
+    /**
+     * Fetches the last selected history and updates the index accordingly.
+     * @returns {Promise<void>} A promise that resolves when the last selected history is fetched and the index is updated.
+     */
     const fetchLastHistory = async () => {
       const lastHistory = await getLastSelectedHistory();
       if(lastHistory != null)
@@ -31,29 +41,27 @@ export default function History() {
           setIndex(0);
       }
       
-      } 
+    } 
   
     React.useEffect(() => {
         fetchLastHistory();               
       }, []); 
   
+    /**
+     * Sets the index and last selected history value.
+     * 
+     * @param {number} index - The new index value.
+     * @returns {void}
+     */
     const handleIndexChange = (index) => {
       setIndex(index);
       setLastSelectedHistory(index.toString());
-      }
+    }
   
     const renderTabBar = props => (
-      <TabBar
+      <CustomTabBar
         {...props}
-        indicatorStyle={{ backgroundColor: SecondaryColor, height: 3 }} // active tab underline color
-        style={{ backgroundColor: PrimaryColor }} // TabBar background
-        indicatorContainerStyle={{backgroundColor: PrimaryColor}}
-        renderLabel={({ route, focused, color }) => (
-          <Text style={{ color: focused ? 'white' : SecondaryColor, backgroundColor: focused ? SecondaryColor : PrimaryColor, paddingLeft: 9, fontSize: 18,
-                        paddingRight: 9, paddingTop: 5, paddingBottom: 5, borderRadius: 20, overflow: 'hidden', marginLeft: -5, marginRight:-5, fontWeight: 500}}>
-          {route.title}
-        </Text>
-        )}
+        renderStyle={styles.tabBarRenderStyle}
       />
     );
   

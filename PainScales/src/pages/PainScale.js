@@ -7,7 +7,18 @@ import { SecondaryColor } from '../utils/Constants';
 import { setLastSelectedScaleId, getLastSelectedScaleId } from '../services/selectedPainScale';
 import styles from './PainScale.styles';
 
+/**
+ * Creates a category page component. This is the main page for each category
+ * 
+ * @param {string} category - The category of the pain scales.
+ * @returns {React.Component} - The category page component.
+ */
 const createCategoryPage = (category) => {
+    /**
+     * Renders the CategoryPage component.
+     * 
+     * @returns {JSX.Element} The rendered CategoryPage component.
+     */
     const CategoryPage = () => {
       const [selectedScale, setSelectedScale] = React.useState(null);
       const [displayScaleList, setDisplayScaleList] = React.useState(false);
@@ -26,6 +37,11 @@ const createCategoryPage = (category) => {
       }
       
       React.useEffect(() => {
+            /**
+             * Fetches the last selected scale from AsyncStorage based on the given category.
+             * If a last scale is found, it sets the selected scale to that scale.
+             * If no last scale is found, it sets the selected scale to the first scale in the scales array.
+             */
             const fetchLastScale = async () => {
                 const lastScaleId = await getLastSelectedScaleId(category);
                 if(lastScaleId!==null)
@@ -40,42 +56,46 @@ const createCategoryPage = (category) => {
             } 
             fetchLastScale();               
         }, []); 
-      
+        
+         // If displayScaleList is true, display the list of scales
+        // allows the user to select the scale
+        const scaleList = <ScrollView>
+            {scales.map(scale => (
+                <TouchableOpacity
+                    style={styles.button}
+                    key={scale.id}
+                    onPress={() => handleScaleSelect(scale.id)}
+                >
+                    <View style={styles.scale_view}>
+                        <Text style={styles.scale_name}>{scale.name}</Text>
+                        {selectedScale && selectedScale.id === scale.id && (
+                            <FontAwesome name="check" size={30} color={SecondaryColor} />
+                        )}
+                    </View>
+                </TouchableOpacity>
+            ))}
+        </ScrollView>;
+
+        // If displayScaleList is false, display the selected scale
+        const PainScaleView = <View style={styles.bottom}>
+            {selectedScale && (
+                <PainScale
+                    scale={selectedScale} />
+            )}
+
+            <TouchableOpacity
+                style={styles.other_scales_button}
+                onPress={handleSelectOtherScale}
+            >
+                <Text style={styles.text_scales_button}>Andere Skala</Text>
+            </TouchableOpacity>
+        </View>;
       return (
         <View style={styles.container}>
                 {displayScaleList ? (
-                    <ScrollView>
-                        {scales.map(scale => (
-                                <TouchableOpacity 
-                                    style={styles.button} 
-                                    key={scale.id} 
-                                    onPress={() => handleScaleSelect(scale.id)}  
-                                >   
-                                    <View style={styles.scale_view}>
-                                    <Text style={styles.scale_name}>{scale.name}</Text>
-                                    {selectedScale && selectedScale.id === scale.id && (
-                                    <FontAwesome name="check" size={30} color={SecondaryColor} />
-                                    )}
-                                    </View>
-                                </TouchableOpacity>
-                                ))
-                        }
-                    </ScrollView>
+                    scaleList
                 ) : (
-                <View style={styles.bottom}>
-                    {selectedScale && (
-                        <PainScale 
-                            scale={selectedScale}
-                        />
-                    )}
-                    
-                    <TouchableOpacity 
-                        style={styles.other_scales_button} 
-                        onPress={handleSelectOtherScale} 
-                    >
-                    <Text style={styles.text_scales_button}>Andere Skala</Text>
-                    </TouchableOpacity>
-                </View>
+                    PainScaleView
                 )}
         </View>
       );
