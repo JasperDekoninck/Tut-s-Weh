@@ -6,6 +6,11 @@ import styles from './PainScale.styles';
 import { PainScaleContext } from '../../context/PainScaleContext';
 import { setOpacity, calculateThumbColor } from '../../utils/PainScaleUtils';
 
+/**
+ * PainScale component displays a pain scale with options for the user to select and submit their answer.
+ * @param {Object} scale - The pain scale object containing the scale details.
+ * @returns {JSX.Element} - The rendered PainScale component.
+ */
 const PainScale = ({ scale }) => {
 
     const { addToHistory } = React.useContext(PainScaleContext);
@@ -23,7 +28,9 @@ const PainScale = ({ scale }) => {
         return () => clearTimeout(timer);
       }, [scale]);
     
-    // handle submit
+    /**
+     * Handles the submission of an answer.
+     */
     const handleAnswerSubmit = () => {
         if(answer !== null) {
             var date = new Date();
@@ -61,7 +68,16 @@ const PainScale = ({ scale }) => {
         , []);
     }
 
-    // render scale
+    const indices = [
+        { text: scale.scaleMinText, opacityIndex: 0 },
+        { text: scale.scaleMidText, opacityIndex: 1 },
+        { text: scale.scaleMaxText, opacityIndex: 2 },
+    ];
+
+    /**
+     * Renders the numerical type of the pain scale.
+     * @returns {JSX.Element} The rendered numerical pain scale component.
+     */
     const renderNumericalType = () => {
         return (
             <View style={styles.scaleContainer}>
@@ -77,29 +93,29 @@ const PainScale = ({ scale }) => {
                     value={answer}
                 />
                 <View style={styles.scaleTextContainer}>
-                    <Text style={{
-                        fontSize: scale.fontSize,
-                        color: '#000',
-                        textAlign: 'center',
-                        opacity: setOpacity(answer, scale)[0],
-                    }}>{scale.scaleMinText}</Text>
-                    <Text style={{
-                        fontSize: scale.fontSize,
-                        color: '#000',
-                        textAlign: 'center',
-                        opacity: setOpacity(answer, scale)[1],
-                    }}>{scale.scaleMidText}</Text>
-                    <Text style={{
-                        fontSize: scale.fontSize,
-                        color: '#000',
-                        textAlign: 'center',
-                        opacity: setOpacity(answer, scale)[2],
-                    }}>{scale.scaleMaxText}</Text>
+                    {indices.map((item, index) => (
+                        <Text
+                        key={index}
+                        style={{
+                            fontSize: scale.fontSize,
+                            color: '#000',
+                            textAlign: 'center',
+                            opacity: setOpacity(answer, scale)[item.opacityIndex],
+                        }}
+                        >
+                        {item.text}
+                        </Text>
+                    ))}
                 </View>
             </View>
         )
     }
 
+    /**
+     * Renders the categorical type of pain scale options.
+     * 
+     * @returns {JSX.Element} The rendered categorical type options.
+     */
     const renderCategoricalType = () => {
         return (
             <View style={styles.optionsContainer}>
