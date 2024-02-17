@@ -23,4 +23,15 @@ export default StyleSheet.create({
         height: 70,
         resizeMode: 'contain',
     },
+    tabBarLabelStyle : {
+        marginBottom: 5, 
+        fontSize: 14
+    },
+    tabBarIconStyle: { 
+        marginTop: 5, 
+        marginBottom: -4, 
+    }, 
+    tabBarStyle : {
+        display: 'flex',
+    }
 });
