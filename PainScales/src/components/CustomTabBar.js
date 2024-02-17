@@ -5,6 +5,14 @@ import { TabBar } from 'react-native-tab-view';
 import styles from './CustomTabBar.styles';
 import { PrimaryColor, SecondaryColor } from '../utils/Constants';
 
+/**
+ * CustomTabBar component renders a customized tab bar for navigation.
+ *
+ * @component
+ * @param {Object} props - The props object containing the necessary properties.
+ * @param {Object} props.renderStyle - The style object for customizing the tab bar labels.
+ * @returns {JSX.Element} The rendered CustomTabBar component.
+ */
 const CustomTabBar = ({ renderStyle, ...props }) => (
   <TabBar
     {...props}
