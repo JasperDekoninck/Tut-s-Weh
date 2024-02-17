@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 import { SecondaryColor } from '../utils/Constants';
 
 export default StyleSheet.create({
-    tabBarStyle: { 
+    tabBarRenderStyle: { 
         paddingLeft: 9, 
         fontSize: 18,
         paddingRight: 9, 
