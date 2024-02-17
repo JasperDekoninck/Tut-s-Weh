@@ -11,6 +11,10 @@ import History from '../pages/History';
 
 const Tab = createBottomTabNavigator();
 
+/**
+ * Renders the main wrapper component for the application.
+ * @returns {JSX.Element} The rendered AppWrapper component.
+ */
 export default function AppWrapper() {
     return (
         <View style={styles.container}>
@@ -33,14 +37,6 @@ export default function AppWrapper() {
                         iconName = focused
                             ? 'history'
                             : 'history';
-                        } else if (route.name === 'Infos') {
-                        iconName = focused
-                            ? 'info'
-                            : 'info';
-                        } else if (route.name === 'Settings') {
-                        iconName = focused
-                            ? 'settings'
-                            : 'settings';
                         }
 
                         return <MaterialIcons name={iconName} size={size} color={color} />;
@@ -48,18 +44,14 @@ export default function AppWrapper() {
                     tabBarActiveTintColor: SecondaryColor,
                     tabBarInactiveTintColor: 'gray',
                     tabBarStyle: [
-                        {
-                            display: 'flex',
-                        }
+                        styles.tabBarStyle
                     ],
-                    tabBarLabelStyle: {marginBottom: 5, fontSize: 14},
-                    tabBarIconStyle: { marginTop: 5, marginBottom: -4, },
+                    tabBarLabelStyle: styles.tabBarLabelStyle,
+                    tabBarIconStyle: styles.tabBarIconStyle,
                 })}
                 >
                     <Tab.Screen name="Home" component={Home}/>
                     <Tab.Screen name="Historie" component={History} />
-                    {/* <Tab.Screen name="Infos" component={Info} /> */}
-                    {/* <Tab.Screen name="Settings" component={Settings} /> */}
                 </Tab.Navigator>
                 </NavigationContainer>
         </View>

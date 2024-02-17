@@ -3,12 +3,22 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const PainScaleContext = React.createContext();
 
+/**
+ * PainScaleProvider component provides a context for managing pain scale history.
+ * @param {Object} props - The component props.
+ * @param {ReactNode} props.children - The child components.
+ * @returns {ReactNode} The rendered component.
+ */
 export const PainScaleProvider = ({ children }) => {
   const [history, setHistory] = useState([]);
 
   const maxIdRef = useRef(0);
 
   useEffect(() => {
+    /**
+     * Fetches data from AsyncStorage and updates the history state.
+     * @returns {Promise<void>} A promise that resolves when the data is fetched and the state is updated.
+     */
     const fetchData = async () => {
       const savedHistory = await AsyncStorage.getItem('history');
       const historyParsed = savedHistory != null ? JSON.parse(savedHistory) : [];
@@ -21,6 +31,11 @@ export const PainScaleProvider = ({ children }) => {
     fetchData();
   }, []);
 
+  /**
+   * Adds data to the history and updates the maximum ID.
+   * @param {Object} data - The data to be added to the history.
+   * @returns {Promise<void>} - A promise that resolves when the data is saved.
+   */
   const addToHistory = async (data) => { 
     // update id directly in data object
     maxIdRef.current = maxIdRef.current + 1;
@@ -37,6 +52,11 @@ export const PainScaleProvider = ({ children }) => {
     
   };
 
+  /**
+   * Deletes an item from the history and updates the history state.
+   * @param {Object} data - The item to be deleted from the history.
+   * @returns {Promise<void>} - A promise that resolves when the item is deleted and the history state is updated.
+   */
   const deleteFromHistory = async (data) => {
     const newHistory = history.filter(item => item.id !== data.id);
   
