@@ -127,6 +127,34 @@ const HistoryCombined = () => {
             </View>
         );
     };
+
+    /**
+     * Renders a categorical answer component.
+     * 
+     * @param {Object} item - The item containing the categorical answer data.
+     * @param {Object} scale - The scale object containing the question.
+     * @returns {JSX.Element} The rendered categorical answer component.
+     */
+    const displayCategoricalAnswer = (item, scale) => {
+        return (
+            <View style={styles.card}>
+                <View style={styles.header}>
+                    <Text style={styles.title}>{scale.question}</Text>
+                    <Text style={styles.subtitle}>Einträgen: {item.totalCounts} </Text>
+                </View>
+                <View style={styles.optionsContainer}>
+                    {item.optionCounts.map(optionCount => 
+                        <View style={styles.optionCount} key={optionCount.option.id}>
+                            <Image source={optionCount.option.image} style={styles.optionImage}/>
+                            <Text style={styles.optionText}>{optionCount.option.text}</Text>
+                            <Text style={styles.percentage}>{optionCount.percentage}%</Text>
+                            <Text style={styles.subtitle}>Tage: {optionCount.daysOption} / {nDays} </Text>
+                        </View>
+                    )}
+                </View>
+            </View>
+        );
+    };
     
 
     // calculate the statistics for each scale
@@ -214,24 +242,7 @@ const HistoryCombined = () => {
                 if (scale.type === "numerical") {
                     return displayNumericalAnswer(item, scale);
                 } else if (scale.type === "categorical") {
-                    return (
-                        <View style={styles.card}>
-                            <View style={styles.header}>
-                                <Text style={styles.title}>{scale.question}</Text>
-                                <Text style={styles.subtitle}>Einträgen: {item.totalCounts} </Text>
-                            </View>
-                            <View style={styles.optionsContainer}>
-                                {item.optionCounts.map(optionCount => 
-                                    <View style={styles.optionCount} key={optionCount.option.id}>
-                                        <Image source={optionCount.option.image} style={styles.optionImage}/>
-                                        <Text style={styles.optionText}>{optionCount.option.text}</Text>
-                                        <Text style={styles.percentage}>{optionCount.percentage}%</Text>
-                                        <Text style={styles.subtitle}>Tage: {optionCount.daysOption} / {nDays} </Text>
-                                    </View>
-                                )}
-                            </View>
-                        </View>
-                    );
+                    return displayCategoricalAnswer(item, scale);
                 }
             }}
         />
