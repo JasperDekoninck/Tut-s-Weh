@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { CATEGORIES, PainScaleData } from '../services/PainScaleData';
 
 export const PainScaleContext = React.createContext();
 

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, FlatList, ScrollView, Image } from 'react-native';
+import { View, Text, TouchableOpacity, FlatList, Image } from 'react-native';
 import { PainScaleContext } from '../../context/PainScaleContext';
-import { CATEGORIES, PainScaleData } from '../../services/PainScaleData';
+import { PainScaleData } from '../../services/PainScaleData';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { StyleSheet } from 'react-native';
-import {PrimaryColor, SecondaryColor} from '../../utils/Constants';
-import { calculateThumbColor, lerpColor } from '../../utils/PainScaleUtils';
+import { SecondaryColor } from '../../utils/Constants';
+import { calculateThumbColor } from '../../utils/PainScaleUtils';
 import CustomCircularProgress from './circularProgress';
 
 

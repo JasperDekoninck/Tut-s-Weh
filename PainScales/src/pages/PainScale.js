@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
-import { ScrollView, Button, Modal, View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import React from 'react';
+import { ScrollView, View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { CATEGORIES, PainScaleData } from '../services/PainScaleData';
 import PainScale from '../components/PainScale/PainScale';
 import { FontAwesome } from '@expo/vector-icons'; 
-import {PrimaryColor, SecondaryColor} from '../utils/Constants';
+import { SecondaryColor } from '../utils/Constants';
 import { setLastSelectedScaleId, getLastSelectedScaleId } from '../services/selectedPainScale';
 
 const createCategoryPage = (category) => {

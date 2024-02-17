@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { useEffect } from 'react';
-import { View, useWindowDimensions, Text } from 'react-native';
+import { useWindowDimensions, Text } from 'react-native';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import { IntensityPage, FeelingPage, AffectPage, TypePage } from './PainScale';
 import { setLastSelectedCategoryId, getLastSelectedCategoryId } from '../services/selectedPainCategory';

@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { SecondaryColor, PrimaryColor, TertiaryColor } from '../../utils/Constants';
+import { SecondaryColor, TertiaryColor } from '../../utils/Constants';
 import { Dimensions } from 'react-native'
 
 const vh = Dimensions.get('window').height;

@@ -4,7 +4,7 @@ import { PainScaleContext } from '../../context/PainScaleContext';
 import { CATEGORIES, PainScaleData } from '../../services/PainScaleData';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { StyleSheet } from 'react-native';
-import {PrimaryColor, SecondaryColor} from '../../utils/Constants';
+import { SecondaryColor } from '../../utils/Constants';
 import Icon from 'react-native-vector-icons/Ionicons'; 
 import { FontAwesome } from '@expo/vector-icons'; 
 import { setOpacity, calculateThumbColor } from '../../utils/PainScaleUtils';
