@@ -3,7 +3,7 @@ import React from 'react';
 import { Text } from 'react-native';
 import { TabBar } from 'react-native-tab-view';
 import styles from './CustomTabBar.styles';
-import { PrimaryColor, SecondaryColor } from '../utils/Constants';
+import { PrimaryColor, SecondaryColor } from '../../utils/Constants';
 
 /**
  * CustomTabBar component renders a customized tab bar for navigation.

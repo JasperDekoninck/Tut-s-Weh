@@ -5,7 +5,7 @@ import { IntensityPage, FeelingPage, AffectPage, TypePage } from './PainScale';
 import { setLastSelectedCategoryId, getLastSelectedCategoryId } from '../services/selectedPainCategory';
 import FlashMessage from 'react-native-flash-message';
 import styles from './Home.styles';
-import CustomTabBar from '../components/CustomTabBar';
+import CustomTabBar from '../components/Small/CustomTabBar';
 
 const IntensityRoute = () => <IntensityPage />;
 const FeelingRoute = () => <FeelingPage />;

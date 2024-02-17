@@ -5,7 +5,7 @@ import { useWindowDimensions } from 'react-native';
 import { TabView, SceneMap } from 'react-native-tab-view';
 import { getLastSelectedHistory, setLastSelectedHistory } from '../services/selectedHistory';
 import styles from './History.styles';
-import CustomTabBar from '../components/CustomTabBar';
+import CustomTabBar from '../components/Small/CustomTabBar';
 
 const renderScene = SceneMap({
     individual: HistoryIndividual, 

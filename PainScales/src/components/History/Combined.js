@@ -5,8 +5,8 @@ import { PainScaleData } from '../../services/PainScaleData';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import styles from './Combined.styles';
 import { calculateThumbColor } from '../../utils/PainScaleUtils';
-import CustomCircularProgress from './circularProgress';
-import CustomDatePicker from './CustomDatePicker';
+import CustomCircularProgress from '../Small/circularProgress';
+import CustomDatePicker from '../Small/CustomDatePicker';
 
 /**
  * Calculates the number of unique days in the given history.

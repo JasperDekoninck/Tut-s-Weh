@@ -8,7 +8,7 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import styles from './Individual.styles';
 import { FontAwesome } from '@expo/vector-icons'; 
 import { setOpacity, calculateThumbColor } from '../../utils/PainScaleUtils';
-import CustomCircularProgress from './circularProgress';
+import CustomCircularProgress from '../Small/circularProgress';
 
 
 /**

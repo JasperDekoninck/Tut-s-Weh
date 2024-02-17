@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { PrimaryColor, SecondaryColor } from '../utils/Constants';
+import { PrimaryColor, SecondaryColor } from '../../utils/Constants';
 
 export default StyleSheet.create({
     tabBarStyle: {
