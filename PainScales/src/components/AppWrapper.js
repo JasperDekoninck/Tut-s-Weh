@@ -1,9 +1,10 @@
 import React from 'react';
-import { View, Image, StyleSheet } from 'react-native';
+import { View, Image } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { MaterialIcons } from '@expo/vector-icons';
-import { PrimaryColor, SecondaryColor } from '../utils/Constants';
+import { SecondaryColor } from '../utils/Constants';
+import styles from './AppWrapper.styles';
 
 import Home from '../pages/Home';
 import History from '../pages/History';
@@ -64,27 +65,3 @@ export default function AppWrapper() {
         </View>
     );
 }
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        maxHeight: '100%',
-    },
-    header: {
-        backgroundColor: PrimaryColor,
-        height: 47,
-        justifyContent: 'center',
-        alignItems: 'center',
-        paddingTop: 5,
-    },
-    title: {
-        color: 'white',
-        fontSize: 22,
-        fontWeight: 'bold',
-    },
-    image: {
-        width: 70,
-        height: 70,
-        resizeMode: 'contain',
-    },
-});

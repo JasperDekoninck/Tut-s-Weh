@@ -1,3 +1,4 @@
+import React from 'react';
 import HistoryIndividual from '../components/History/Individual';
 import HistoryCombined from '../components/History/Combined';
 import { useWindowDimensions, Text } from 'react-native';
